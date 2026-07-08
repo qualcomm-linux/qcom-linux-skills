@@ -1,0 +1,101 @@
+---
+name: qcom-flash-qdl
+description: >-
+  Flash a Qualcomm Linux qcomflash image bundle onto a board in Emergency
+  Download (EDL) mode using the QDL tool, including multi-board selection
+  via --serial. Use when asked to "flash the board", "flash the RB3 Gen2 /
+  rb1 / EVK", "flash the qcomflash image", "reflash over EDL", or when a
+  device shows up as USB 05c6:9008. Do NOT use for building images (see
+  qcom-yocto-build-image), for boot validation after flashing (see
+  qcom-boot-validate), or for fastboot/U-Boot based flows.
+---
+
+# Flash a board over EDL with QDL
+
+Flashes the `qcomflash` bundle produced by a meta-qcom build (see
+`qcom-yocto-build-image`) onto a board in Emergency Download (EDL) mode, following
+meta-qcom's `docs/flashing.md`.
+
+## Prerequisites
+
+- **qdl** built from [linux-msm/qdl](https://github.com/linux-msm/qdl)
+  (follow its build instructions), or available on PATH.
+- A udev rule granting raw USB access to VID:PID `05c6:9008` so qdl runs as
+  a non-root user (see the "Update udev rules" section of the Qualcomm
+  flashing docs). Without it, qdl must run via sudo — prefer the udev rule.
+- ModemManager must not be running (it grabs the EDL USB device):
+  `systemctl is-active ModemManager` — stop it if active.
+- The flash bundle: a `*.qcomflash` directory or `*.qcomflash.tar.gz` from
+  the build deploy dir, containing `prog_firehose_ddr.elf`,
+  `rawprogram*.xml` and `patch*.xml`.
+
+## Procedure
+
+### 1. Stage the flash bundle
+
+```bash
+tar -xzf <image>-<machine>.rootfs.qcomflash.tar.gz   # if compressed
+cd <image>-<machine>.rootfs.qcomflash
+ls prog_firehose_ddr.elf rawprogram*.xml patch*.xml   # must all exist
+```
+
+### 2. Open the serial console (recommended)
+
+Connect the debug UART and open it at 115200 baud so flashing and the first
+boot can be observed (`dmesg | grep tty` shows the device, e.g.
+`/dev/ttyUSB0`):
+
+```bash
+picocom -b 115200 /dev/ttyUSB0
+```
+
+### 3. Put the board in EDL mode
+
+See [references/entering-edl.md](references/entering-edl.md) for per-board
+instructions (e.g. RB3 Gen 2: hold `F_DL` while applying power). Then
+confirm the host sees the EDL device:
+
+```bash
+lsusb -d 05c6:9008
+```
+
+No output means the board is not in EDL — do not proceed; re-check the
+button/switch sequence and the USB cable.
+
+### 4. Flash
+
+```bash
+qdl --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+```
+
+With **multiple boards** connected, select one by serial (obtained via
+`lsusb -v -d 05c6:9008 | grep iSerial`):
+
+```bash
+qdl --serial=<SERIAL> --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+```
+
+A healthy run starts with the firehose handshake
+(`HELLO version: 0x2 ...`) followed by per-partition program/patch
+progress. Report the qdl exit status and the last lines of output.
+
+### 5. Boot and hand off
+
+After a successful flash, power-cycle the board (or exit EDL per the board's
+guide) so it boots the new image, then validate the boot with the
+`qcom-boot-validate` skill.
+
+## Notes / gotchas
+
+- A failed or interrupted `qdl` leaves the board in EDL mode — the recovery
+  is simply to re-run the qdl command; no re-arming is needed.
+- `qdl` "Waiting for EDL device" that never completes usually means
+  ModemManager stole the device, the udev rule is missing, or the board
+  dropped out of EDL (power-cycle back into EDL and retry).
+- Never mix bundles: `rawprogram*.xml` describes the partition layout for
+  exactly the machine the image was built for; flashing another board's
+  bundle can brick storage contents (EDL itself remains available for
+  recovery).
+- This flow writes the full partition table and images. If the user only
+  wants to update a kernel or rootfs partition, confirm intent before
+  flashing everything.
