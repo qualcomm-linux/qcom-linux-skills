@@ -1,4 +1,4 @@
-# qli-skills
+# qcom-linux-skills
 
 Catalog of Agent Skill files to be used with Qualcomm Linux.
 
@@ -25,4 +25,4 @@ See [CONTRIBUTING.md file](CONTRIBUTING.md).
 
 ## License
 
-*qli-skills* is licensed under the [BSD-3-clause License](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
+*qcom-linux-skills* is licensed under the [BSD-3-clause License](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
