@@ -68,9 +68,34 @@ By submitting a PR, you agree to participate in this process and help us keep th
 
 Here are a few things you can do that will increase the likelihood of your pull request to be accepted:
 
-- Follow the existing style where possible. **INSERT LINK TO STYLE, e.g. PEP8 for python**
-- Write tests.
+- Follow the existing style where possible: model new skills on the
+  [skill layout and conventions](README.md#skill-layout-and-conventions)
+  documented in the README (and the `skills/qcom-device-info` example),
+  keep bash scripts `shellcheck`-clean with `set -euo pipefail`, follow
+  [PEP 8](https://peps.python.org/pep-0008/) for Python, and give every
+  script an SPDX BSD-3-Clause license header.
+- Test your skill: run its scripts, and exercise the documented procedure
+  end-to-end where hardware or a checkout of the target repository allows.
 - Keep your change as focused as possible.
   If you want to make multiple independent changes, please consider submitting them as separate pull requests.
-- Write a [good commit message](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+- Write a [good commit message](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) (see below).
 - It's a good idea to arrange a discussion with other developers to ensure there is consensus on large features, architecture changes, and other core code changes. PR reviews will go much faster when there are no surprises.
+
+## Commit messages
+
+This project follows the same commit conventions as
+[meta-qcom](https://github.com/qualcomm-linux/meta-qcom/blob/master/CONTRIBUTING.md):
+
+- Each commit must be atomic — exactly one logical change — and the tree
+  must remain functional after every commit.
+- The subject follows the form `component: summary of the changes`, where
+  `component` identifies the skill or file being touched (for example
+  `skills/qcom-yocto-build-image: add sm8750-mtp machine`).
+- The body first describes the problem being solved, so a reader
+  understands *why* the change is needed, then uses the imperative mood to
+  describe the actions taken. Prefer prose paragraphs wrapped at ~72
+  characters over bullet lists, and do not restate the diff.
+- Every commit carries a `Signed-off-by` trailer matching your `git config`
+  identity (`git commit -s`).
+- If an AI coding assistant helped create the change, acknowledge it with an
+  `Assisted-by: AGENT_NAME:MODEL_VERSION` trailer.
