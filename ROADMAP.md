@@ -29,7 +29,7 @@ Contributions for any entry are welcome — see
 |---|---|---|---|
 | `qcom-flash-qdl` | P1 | available | Generic EDL/QDL flashing: detect `05c6:9008`, unpack the `qcomflash` artifact, run `qdl`, `--serial` for multiple boards, per-board EDL-mode notes |
 | `qcom-boot-validate` | P1 | available | Serial-console boot validation: wait for `login:`, log in with the distro's default credentials, verify kernel/os-release/systemd state |
-| `qcom-download-prebuilt` | P3 | planned | Locate and download prebuilt Qualcomm Linux releases for a given board (Dragonwing "getting started" flow) |
+| `qcom-yocto-download-prebuilt` | P3 | available | Download prebuilt Qualcomm Linux (QLI) flashable images from the public CodeLinaro archive, per the Dragonwing flash guide |
 
 ## C. Debian/Ubuntu images (qcom-deb-images)
 
