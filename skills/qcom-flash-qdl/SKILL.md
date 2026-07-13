@@ -72,7 +72,19 @@ lsusb -d 05c6:9008
 No output means the board is not in EDL — do not proceed; re-check the
 button/switch sequence and the USB cable.
 
-### 4. Flash
+### 4. Provision UFS
+
+> Skip this step for **IQ-615-EVK** (EMMC storage).
+
+UFS must be provisioned before the first flash, and re-provisioned if the LUN
+layout has changed. It is safe to re-run when unsure. See
+[references/provision-ufs.md](references/provision-ufs.md) for the per-board
+download URL and `qdl` command.
+
+The device reboots after provisioning. Confirm it is back in EDL
+(`lsusb -d 05c6:9008`) before proceeding.
+
+### 5. Flash
 
 ```bash
 qdl --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
@@ -89,7 +101,7 @@ A healthy run starts with the firehose handshake
 (`HELLO version: 0x2 ...`) followed by per-partition program/patch
 progress. Report the qdl exit status and the last lines of output.
 
-### 5. Boot and hand off
+### 6. Boot and hand off
 
 After a successful flash, power-cycle the board (or exit EDL per the board's
 guide) so it boots the new image, then validate the boot with the
