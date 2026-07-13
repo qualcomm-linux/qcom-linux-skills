@@ -84,7 +84,18 @@ download URL and `qdl` command.
 The device reboots after provisioning. Confirm it is back in EDL
 (`lsusb -d 05c6:9008`) before proceeding.
 
-### 5. Flash
+### 5. Configure CDT
+
+The Configuration Data Table (CDT) is device-specific initialization data. See
+[references/cdt-by-device.md](references/cdt-by-device.md) for the selection
+steps:
+
+- **IQ-X7181 / IQ-X5121**: download a separate CDT tarball from CodeLinaro and
+  flash it with `qdl` before the main image.
+- **All other kits**: multiple CDT binaries ship inside the qcomflash bundle;
+  copy the correct one over `cdt.bin`.
+
+### 6. Flash
 
 ```bash
 qdl --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
@@ -101,7 +112,7 @@ A healthy run starts with the firehose handshake
 (`HELLO version: 0x2 ...`) followed by per-partition program/patch
 progress. Report the qdl exit status and the last lines of output.
 
-### 6. Boot and hand off
+### 7. Boot and hand off
 
 After a successful flash, power-cycle the board (or exit EDL per the board's
 guide) so it boots the new image, then validate the boot with the
