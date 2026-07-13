@@ -110,15 +110,28 @@ steps:
 
 ### 7. Flash
 
-```bash
-qdl --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+Run `qdl` with the storage type for the board (from step 0):
+
+```bash  UFS (IQ-9075-EVK, IQ-8275-EVK, QCS6490)
+qdl --storage ufs prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+```
+
+```bash  EMMC (IQ-615-EVK)
+qdl --storage emmc prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+```
+
+```bash  UFS/SPINOR (IQ-X7181-EVK, IQ-X5121-EVK)
+cd spinor
+qdl --storage spinor xbl_s_devprg_ns.melf rawprogram*.xml patch*.xml
+cd ..
+qdl --storage ufs xbl_s_devprg_ns.melf rawprogram*.xml patch*.xml
 ```
 
 With **multiple boards** connected, select one by serial (obtained via
 `lsusb -v -d 05c6:9008 | grep iSerial`):
 
 ```bash
-qdl --serial=<SERIAL> --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+qdl --storage ufs --serial=<SERIAL> prog_firehose_ddr.elf rawprogram*.xml patch*.xml
 ```
 
 A healthy run starts with the firehose handshake
