@@ -84,7 +84,20 @@ download URL and `qdl` command.
 The device reboots after provisioning. Confirm it is back in EDL
 (`lsusb -d 05c6:9008`) before proceeding.
 
-### 5. Configure CDT
+### 5. Flash SAIL
+
+> Only for **IQ-9075-EVK** and **IQ-8275-EVK**. Skip for all other boards.
+
+SAIL (Safety Island) is isolated safety-critical firmware. Its artifacts are in
+the `sail_nor/` subdirectory of the flash bundle:
+
+```bash
+cd sail_nor
+qdl --storage spinor prog_firehose_ddr.elf rawprogram0.xml patch0.xml
+cd ..
+```
+
+### 6. Configure CDT
 
 The Configuration Data Table (CDT) is device-specific initialization data. See
 [references/cdt-by-device.md](references/cdt-by-device.md) for the selection
@@ -95,7 +108,7 @@ steps:
 - **All other kits**: multiple CDT binaries ship inside the qcomflash bundle;
   copy the correct one over `cdt.bin`.
 
-### 6. Flash
+### 7. Flash
 
 ```bash
 qdl --debug prog_firehose_ddr.elf rawprogram*.xml patch*.xml
@@ -112,7 +125,7 @@ A healthy run starts with the firehose handshake
 (`HELLO version: 0x2 ...`) followed by per-partition program/patch
 progress. Report the qdl exit status and the last lines of output.
 
-### 7. Boot and hand off
+### 8. Boot and hand off
 
 After a successful flash, power-cycle the board (or exit EDL per the board's
 guide) so it boots the new image, then validate the boot with the
