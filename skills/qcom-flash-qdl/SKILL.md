@@ -13,8 +13,9 @@ description: >-
 # Flash a board over EDL with QDL
 
 Flashes the `qcomflash` bundle produced by a meta-qcom build (see
-`qcom-yocto-build-image`) onto a board in Emergency Download (EDL) mode, following
-meta-qcom's `docs/flashing.md`.
+`qcom-yocto-build-image`) or a prebuilt image download (see
+`qcom-yocto-download-prebuilt`) onto a board in EDL mode, following
+meta-qcom's `docs/flashing.md` and the Dragonwing flash guide.
 
 ## Prerequisites
 
@@ -25,9 +26,9 @@ meta-qcom's `docs/flashing.md`.
   flashing docs). Without it, qdl must run via sudo — prefer the udev rule.
 - ModemManager must not be running (it grabs the EDL USB device):
   `systemctl is-active ModemManager` — stop it if active.
-- The flash bundle: a `*.qcomflash` directory or `*.qcomflash.tar.gz` from
-  the build deploy dir, containing `prog_firehose_ddr.elf`,
-  `rawprogram*.xml` and `patch*.xml`.
+- The flash bundle: a `*.qcomflash` directory or archive from the build deploy
+  dir or prebuilt download, containing `prog_firehose_ddr.elf`,
+  `rawprogram*.xml`, and `patch*.xml`.
 
 ## Procedure
 
@@ -43,11 +44,23 @@ several later steps depend on it.
 
 ### 1. Stage the flash bundle
 
+**Prebuilt image (zip archive):**
 ```bash
-tar -xzf <image>-<machine>.rootfs.qcomflash.tar.gz   # if compressed
-cd <image>-<machine>.rootfs.qcomflash
-ls prog_firehose_ddr.elf rawprogram*.xml patch*.xml   # must all exist
+unzip <prebuilt-image>.zip
+cd <unzipped-image-directory>/images/<machine>/<image>-<machine>
 ```
+
+**Compiled image (already in deploy dir):**
+```bash
+cd build/tmp/deploy/images/<machine>/<image>-<machine>.rootfs.qcomflash
+```
+
+Confirm the bundle is intact — these files must all exist:
+```bash
+ls prog_firehose_ddr.elf rawprogram*.xml patch*.xml
+```
+
+All subsequent commands run from this directory unless stated otherwise.
 
 ### 2. Open the serial console (recommended)
 
