@@ -31,6 +31,16 @@ meta-qcom's `docs/flashing.md`.
 
 ## Procedure
 
+### 0. Identify device and storage type
+
+Ask the user which board they are flashing if not already stated. This
+determines storage type, whether UFS provisioning is needed, whether SAIL must
+be flashed, and which CDT to use.
+
+See [references/storage-types.md](references/storage-types.md) for the default
+storage type per board. Surface the storage type early — the `qdl` command and
+several later steps depend on it.
+
 ### 1. Stage the flash bundle
 
 ```bash
