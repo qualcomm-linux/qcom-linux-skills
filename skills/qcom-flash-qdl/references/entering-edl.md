@@ -17,6 +17,58 @@ From meta-qcom `docs/flashing.md` and the RB3 Gen 2 Quick Start Guide:
    keep holding until the power is on.
 3. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
 
+## IQ-9075-EVK
+
+### IQ-9 Beta EVK
+
+From the IQ-9075 Quick Start Guide:
+
+1. Turn on dip switch **S5-4** to enter EDL mode.
+2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
+3. Turn off dip switch **S5-4** after flashing is complete.
+
+### IQ-9075 EVK
+
+From the IQ-9075 Quick Start Guide:
+
+1. Turn on dip switch **SW2-3** to enter EDL mode.
+2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
+3. Turn off dip switch **SW2-3** after flashing is complete.
+
+## IQ-8275-EVK
+
+### IQ-8 Beta EVK
+
+From the IQ-8275 Quick Start Guide:
+
+1. Turn on dip switch **S5-4** to enter EDL mode.
+2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
+3. Turn off dip switch **S5-4** after flashing is complete.
+
+### IQ-8275 EVK
+
+From the IQ-8275 Quick Start Guide:
+
+1. Turn on dip switch **S2-8** to enter EDL mode.
+2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
+3. Turn off dip switch **S2-8** after flashing is complete.
+
+## IQ-615-EVK
+
+From the IQ-615 Quick Start Guide:
+
+1. Turn off the **SW** switch and turn on dip switch **SW3-4** to enter EDL mode.
+2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
+3. Turn on the **SW** switch and turn off dip switch **SW3-4** after flashing is complete.
+
+## IQ-X7181-EVK / IQ-X5121-EVK
+
+From the IQ-X7181/IQ-X5121 Quick Start Guide:
+
+1. Turn on dip switch **S2-4** to enter EDL mode.
+2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
+3. Turn off dip switch **S2-4** after flashing is complete.
+
 ## Common patterns on other boards
 
 - **Force-DL button/switch**: most development boards (RB1, IDP, EVK
