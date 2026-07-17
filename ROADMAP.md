@@ -36,7 +36,7 @@ Contributions for any entry are welcome — see
 | Skill | Priority | Status | Scope |
 |---|---|---|---|
 | `qcom-deb-build-image` | P2 | available | Build a Debian image from qcom-deb-images (debos recipes / build scripts) for supported boards |
-| `qcom-deb-flash-boot` | P2 | planned | Flash/boot the Debian image on a board following the qcom-deb-images documented flow |
+| `qcom-deb-flash-boot` | P2 | available | Flash/boot the Debian image on a board following the qcom-deb-images documented flow |
 
 ## D. Kernel development (qualcomm-linux/kernel, qcom-next)
 
