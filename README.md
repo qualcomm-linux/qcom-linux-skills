@@ -18,6 +18,7 @@ for the product documentation these workflows are based on.
 |---|---|---|
 | [qcom-device-info](skills/qcom-device-info/SKILL.md) | users | Print SoC/board/OS info from a booted Qualcomm Linux target (example skill / authoring template) |
 | [qcom-yocto-build-image](skills/qcom-yocto-build-image/SKILL.md) | users, developers | Build Qualcomm Linux images from meta-qcom with kas-container |
+| [qcom-deb-build-image](skills/qcom-deb-build-image/SKILL.md) | users, developers | Build a Qualcomm Linux Debian (trixie) image from qcom-deb-images with debos |
 | [qcom-yocto-download-prebuilt](skills/qcom-yocto-download-prebuilt/SKILL.md) | users | Download prebuilt Qualcomm Linux (QLI) flashable images from the public CodeLinaro archive |
 | [qcom-flash-qdl](skills/qcom-flash-qdl/SKILL.md) | users | Flash a board in EDL mode with the QDL tool |
 | [qcom-boot-validate](skills/qcom-boot-validate/SKILL.md) | users, developers | Validate that a board boots to a working login shell over the serial console |
