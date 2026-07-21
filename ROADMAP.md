@@ -63,6 +63,7 @@ Contributions for any entry are welcome — see
 | `qcom-yocto-pre-pr-checks` | P1 | available | Run meta-qcom's CI-parity checks (yocto-patchreview, yocto-check-layer, oe-selftest) before opening/updating a PR |
 | `qcom-backport` | P3 | planned | Backport a commit from the development branch to an LTS branch with the `[Backport <branch>]` subject convention |
 | `qcom-ci-triage` | P3 | planned | Investigate a failing GitHub Actions run in a qualcomm-linux repo and summarize the root cause |
+| `qcom-lava-log` | P2 | available | Fetch and analyze LAVA test job logs, results, and definitions via the LAVA REST API |
 
 ## G. Skill catalog management
 
