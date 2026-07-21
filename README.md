@@ -24,6 +24,7 @@ for the product documentation these workflows are based on.
 | [qcom-kernel-qcom-next-build](skills/qcom-kernel-qcom-next-build/SKILL.md) | developers | Cross-build the qcom-next kernel standalone (defconfig + qcom.config fragments) |
 | [qcom-yocto-pre-pr-checks](skills/qcom-yocto-pre-pr-checks/SKILL.md) | developers | Run meta-qcom's CI-parity checks (patchreview, check-layer, oe-selftest) before a PR |
 | [qcom-yocto-update-base-lock](skills/qcom-yocto-update-base-lock/SKILL.md) | maintainers | Refresh the layer commit pins in meta-qcom's ci/base.lock.yml with a changelog-style commit |
+| [qcom-skills-contribute](skills/qcom-skills-contribute/SKILL.md) | users, developers | Turn local edits to an installed skill from this catalog into a DCO-signed topic-branch commit and, on request, the upstream pull request |
 
 More skills are planned — see [ROADMAP.md](ROADMAP.md).
 

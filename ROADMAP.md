@@ -64,6 +64,12 @@ Contributions for any entry are welcome — see
 | `qcom-backport` | P3 | planned | Backport a commit from the development branch to an LTS branch with the `[Backport <branch>]` subject convention |
 | `qcom-ci-triage` | P3 | planned | Investigate a failing GitHub Actions run in a qualcomm-linux repo and summarize the root cause |
 
+## G. Skill catalog management
+
+| Skill | Priority | Status | Scope |
+|---|---|---|---|
+| `qcom-skills-contribute` | P1 | available | Turn local edits to an installed skill from this catalog into a DCO-signed topic-branch commit and, on request, the upstream pull request |
+
 ## Out of scope
 
 - Lab-specific automation (private board farms, site-specific power/EDL
