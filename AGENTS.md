@@ -100,7 +100,10 @@ repository allows.
 
 Pull request CI (`.github/workflows/qcom-preflight-checks.yml`) runs the
 Qualcomm preflight checks: Semgrep scan, dependency review, repolinter,
-copyright/license check, and commit-email check.
+copyright/license check, and commit-email check. Catalog CI
+(`.github/workflows/catalog-checks.yml`) enforces the conventions above:
+it runs the commands in this section plus the Agent Skills reference
+validator (`skills-ref validate`) over every skill.
 
 ## 4) Pull request / contribution workflow
 

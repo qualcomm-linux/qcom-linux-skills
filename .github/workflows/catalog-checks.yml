@@ -1,0 +1,60 @@
+name: Catalog Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  catalog:
+    name: Catalog consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Repository conventions and cross-references
+        run: python3 ci/check-catalog.py
+
+      - name: Agent Skills spec conformance (skills-ref)
+        run: |
+          python3 -m pip install --user \
+            "git+https://github.com/agentskills/agentskills.git@38a2ff82958afee88dadf4831509e6f7e9d8ef4e#subdirectory=skills-ref"
+          for d in skills/*/; do
+            skills-ref validate "$d"
+          done
+
+      - name: ShellCheck
+        run: shellcheck install.sh skills/*/scripts/*.sh
+
+      - name: Python compile check
+        run: find skills -path '*/scripts/*.py' -exec python3 -m py_compile {} +
+
+      - name: Installer self-test
+        run: |
+          ./install.sh --targets project --project "$(mktemp -d)"
+          ./install.sh --targets project --project "$(mktemp -d)" --skills qcom-device-info
+          ./install.sh --list
+          if ./install.sh --targets project --project "$(mktemp -d)" --skills does-not-exist; then
+            echo "expected the unknown skill name to fail" >&2
+            exit 1
+          fi
+
+  marketplace:
+    name: Marketplace manifest validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Validate plugin marketplace
+        run: claude plugin validate .
