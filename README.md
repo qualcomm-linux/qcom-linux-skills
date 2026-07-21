@@ -35,18 +35,54 @@ More skills are planned — see [ROADMAP.md](ROADMAP.md).
 
 ## Installation Instructions
 
-Run the installer to symlink every skill into the skill directories of the
+There are three install routes; pick by whether you may end up improving
+the skills or only consuming them.
+
+### Clone + install.sh (recommended — any agent, contribution-ready)
+
+Run the installer to symlink skills into the skill directories of the
 agents you use (defaults to Claude Code, Codex and Cursor):
 
 ```bash
-./install.sh                        # all default targets
-./install.sh --targets claude      # only ~/.claude/skills
-./install.sh --copy                # copy instead of symlink
+./install.sh                        # all skills, all default targets
+./install.sh --targets claude       # only ~/.claude/skills
+./install.sh --skills qcom-flash-qdl,qcom-boot-validate    # just a subset
+./install.sh --list                 # list the available skills
+./install.sh --copy                 # copy instead of symlink
 ./install.sh --targets project --project ~/src/meta-qcom   # project-local
 ```
 
-Alternatively, copy the directories under `skills/` into your favorite agent
-skills directory by hand.
+The symlink default is deliberate: installed skills point back into this
+clone, so when you (or your agent) improve a skill the edit lands on a
+branchable git work tree, and the
+[qcom-skills-contribute](skills/qcom-skills-contribute/SKILL.md) skill can
+turn it into an upstream pull request. Prefer symlinks over `--copy` —
+copies drift silently from the catalog.
+
+### Claude Code plugin marketplace (consume-only)
+
+```text
+/plugin marketplace add qualcomm-linux/qcom-linux-skills
+/plugin install qcom-flash-qdl@qcom-linux-skills
+```
+
+Each skill is its own plugin, so you install exactly what you need and
+pick up updates with `/plugin marketplace update qcom-linux-skills`.
+Marketplace installs are read-only copies in Claude Code's plugin cache
+(skills appear namespaced under the plugin name); to propose changes,
+use the clone route above. Claude Code only.
+
+### npx skills (consume-only, many agents)
+
+```bash
+npx skills add qualcomm-linux/qcom-linux-skills --skill qcom-flash-qdl
+```
+
+The community [skills CLI](https://github.com/vercel-labs/skills)
+installs single skills from this repository's standard layout for many
+agents, including Claude Code, Codex and Cursor. Installs are detached
+copies tracked by its own lockfile; as with the marketplace route,
+propose changes via the clone route above.
 
 ## Usage
 
@@ -75,7 +111,9 @@ for a minimal example):
   `qcom-deb-*` (planned) for qcom-deb-images, and kernel skills name the
   tree/branch they build (e.g. `qcom-kernel-qcom-next-build`). Plain
   `qcom-*` names are reserved for distro-agnostic board and device skills
-  (`qcom-flash-qdl`, `qcom-boot-validate`, `qcom-device-info`).
+  (`qcom-flash-qdl`, `qcom-boot-validate`, `qcom-device-info`), and
+  `qcom-skills-*` for skills that manage this catalog itself
+  (`qcom-skills-contribute`).
 - Frontmatter has two keys: `name` (matches the directory) and a folded
   `description` that states what the skill does, quotes the trigger phrases
   users would say, and names what the skill must NOT be used for.

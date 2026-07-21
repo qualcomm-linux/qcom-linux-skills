@@ -8,6 +8,21 @@ Your help is essential for keeping this project great and for making it better.
 
 In general, contributors should develop on branches based off of `main` and pull requests should be made against `main`.
 
+## Proposing changes from an installed skill
+
+If you installed the catalog with `install.sh` (the symlink default),
+every installed skill points back into your git clone — so when you or
+your coding agent improve a skill in place, the edit is already sitting
+on a branchable work tree. The
+[qcom-skills-contribute](skills/qcom-skills-contribute/SKILL.md) skill
+(or its `scripts/contribute.sh` helper, directly) packages such an edit
+the way this document expects: it locates the clone, runs the catalog
+checks, creates a topic branch, and makes the DCO-signed commit with the
+trailers in the required order, stopping before push. Copy and
+marketplace installs are handled by a fallback that clones this
+repository fresh and transplants the modified skill. Either way, the
+result feeds into the pull-request flow below.
+
 ## Submitting a pull request
 
 1. Please read our [code of conduct](CODE-OF-CONDUCT.md) and [license](LICENSE.txt).

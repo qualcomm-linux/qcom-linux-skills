@@ -36,8 +36,11 @@ skills/<skill-name>/
 
 Other files an agent should know about:
 
-- `install.sh` — symlinks or copies every skill into agent skill directories
-  (`--targets claude,codex,cursor,project`); idempotent and self-verifying.
+- `install.sh` — symlinks or copies skills into agent skill directories
+  (`--targets claude,codex,cursor,project`, `--skills` for a subset,
+  `--list` to enumerate); idempotent and self-verifying.
+- `.claude-plugin/marketplace.json` — Claude Code plugin marketplace
+  manifest exposing each skill as an individually installable plugin.
 - `README.md` — the "Available skills" table and the authoritative
   [skill layout and conventions](README.md#skill-layout-and-conventions).
 - `ROADMAP.md` — planned skills with their intended names and scope.
@@ -56,8 +59,9 @@ README conventions. In summary:
 - Skill names state the project/distro they drive: `qcom-yocto-*` for
   meta-qcom (Yocto) workflows, `qcom-deb-*` (planned) for qcom-deb-images,
   kernel skills name the tree/branch they build
-  (e.g. `qcom-kernel-qcom-next-build`), and plain `qcom-*` is reserved for
-  distro-agnostic board and device skills.
+  (e.g. `qcom-kernel-qcom-next-build`), plain `qcom-*` is reserved for
+  distro-agnostic board and device skills, and `qcom-skills-*` for skills
+  that manage this catalog itself.
 - Script paths inside a SKILL.md are relative to the skill's directory.
 - Helper scripts carry the Qualcomm copyright and SPDX BSD-3-Clause header,
   a shebang, and `set -euo pipefail` (bash, `shellcheck`-clean) or
@@ -66,8 +70,9 @@ README conventions. In summary:
   destructive steps, and clearly report PASS/FAIL outcomes.
 
 When adding a skill, also add it to the "Available skills" table in
-[README.md](README.md) and reconcile [ROADMAP.md](ROADMAP.md): mark the
-matching entry available, or add it under the fitting group.
+[README.md](README.md), add its plugin entry to
+`.claude-plugin/marketplace.json`, and reconcile [ROADMAP.md](ROADMAP.md):
+mark the matching entry available, or add it under the fitting group.
 
 ## 3) Validate before opening/updating a PR
 
@@ -78,10 +83,12 @@ over the whole catalog:
 shellcheck install.sh skills/*/scripts/*.sh
 python3 -m py_compile skills/*/scripts/*.py
 ./install.sh --targets project --project "$(mktemp -d)"
+./install.sh --targets project --project "$(mktemp -d)" --skills <one-skill>
+claude plugin validate .   # or: python3 -m json.tool .claude-plugin/marketplace.json
 ```
 
-`install.sh` verifies that every skill's `SKILL.md` is visible after the
-install and prints `[err]` lines on failure.
+`install.sh` verifies that every selected skill's `SKILL.md` is visible
+after the install and prints `[err]` lines on failure.
 
 Beyond that, test the skill itself: run its scripts, and exercise the
 documented procedure end-to-end where hardware or a checkout of the target
