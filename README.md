@@ -118,7 +118,7 @@ for a minimal example):
   `description` that states what the skill does, quotes the trigger phrases
   users would say, and names what the skill must NOT be used for.
 - Script paths inside a SKILL.md are relative to the skill's directory.
-- Helper scripts carry an SPDX BSD-3-Clause header, a shebang, and
+- Helper scripts carry an SPDX BSD-3-Clause-Clear header, a shebang, and
   `set -euo pipefail` (bash) or equivalent strictness (python).
 - Skills are non-destructive by default: they stop before push, ask before
   destructive steps, and clearly report PASS/FAIL outcomes.
@@ -134,4 +134,4 @@ See [CONTRIBUTING.md file](CONTRIBUTING.md).
 
 ## License
 
-*qcom-linux-skills* is licensed under the [BSD-3-clause License](https://spdx.org/licenses/BSD-3-Clause.html). See [LICENSE.txt](LICENSE.txt) for the full license text.
+*qcom-linux-skills* is licensed under the [BSD-3-Clause-Clear License](https://spdx.org/licenses/BSD-3-Clause-Clear.html). See [LICENSE.txt](LICENSE.txt) for the full license text.

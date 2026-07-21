@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 #
 # Turn local modifications to an installed qcom-linux-skills skill into a
 # DCO-signed commit on a topic branch, ready to submit as a pull request.

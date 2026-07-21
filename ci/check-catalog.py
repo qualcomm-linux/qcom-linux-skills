@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 """Catalog consistency checker for qcom-linux-skills.
 
 Enforces the repository-specific conventions documented in AGENTS.md and
@@ -114,13 +114,13 @@ def check_scripts(name):
         if entry.endswith(".sh"):
             if not text.startswith("#!"):
                 err(10, path, "missing shebang on the first line")
-            if "SPDX-License-Identifier: BSD-3-Clause" not in head:
-                err(11, path, "missing SPDX BSD-3-Clause header")
+            if "SPDX-License-Identifier: BSD-3-Clause-Clear" not in head:
+                err(11, path, "missing SPDX BSD-3-Clause-Clear header")
             if "set -euo pipefail" not in text:
                 err(12, path, "missing 'set -euo pipefail'")
         elif entry.endswith(".py"):
-            if "SPDX-License-Identifier: BSD-3-Clause" not in head:
-                err(14, path, "missing SPDX BSD-3-Clause header")
+            if "SPDX-License-Identifier: BSD-3-Clause-Clear" not in head:
+                err(14, path, "missing SPDX BSD-3-Clause-Clear header")
 
 
 def check_readme(skills):

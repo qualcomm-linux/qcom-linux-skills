@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 #
 # Fetch LAVA job metadata + logs and print a quick result summary.
 # Usage: lava.sh <job_id_or_url> [host]

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 #
 # bump-base-lock.sh - refresh ci/base.lock.yml layer pins to the latest
 # upstream commit, git-only.

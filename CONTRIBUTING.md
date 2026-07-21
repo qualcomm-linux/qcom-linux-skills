@@ -88,7 +88,7 @@ Here are a few things you can do that will increase the likelihood of your pull 
   documented in the README (and the `skills/qcom-device-info` example),
   keep bash scripts `shellcheck`-clean with `set -euo pipefail`, follow
   [PEP 8](https://peps.python.org/pep-0008/) for Python, and give every
-  script an SPDX BSD-3-Clause license header.
+  script an SPDX BSD-3-Clause-Clear license header.
 - Test your skill: run its scripts, and exercise the documented procedure
   end-to-end where hardware or a checkout of the target repository allows.
 - Keep your change as focused as possible.

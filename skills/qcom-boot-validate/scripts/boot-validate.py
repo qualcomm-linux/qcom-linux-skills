@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 """boot-validate.py - validate a Qualcomm Linux board boots to a login shell.
 
 Watches the board's serial console, waits for the login prompt, logs in with

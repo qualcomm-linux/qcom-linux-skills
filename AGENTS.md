@@ -20,7 +20,7 @@ drive workflows in external repositories — building images with
 flashing and validating boards, and working on the
 [qcom-next kernel](https://github.com/qualcomm-linux/kernel/tree/qcom-next).
 This repository itself has no build system or test harness: it is markdown,
-a few helper scripts, and the `install.sh` installer, licensed BSD-3-Clause.
+a few helper scripts, and the `install.sh` installer, licensed BSD-3-Clause-Clear.
 
 ## 1) Repository layout
 
@@ -66,7 +66,7 @@ README conventions. In summary:
   distro-agnostic board and device skills, and `qcom-skills-*` for skills
   that manage this catalog itself.
 - Script paths inside a SKILL.md are relative to the skill's directory.
-- Helper scripts carry the Qualcomm copyright and SPDX BSD-3-Clause header,
+- Helper scripts carry the Qualcomm copyright and SPDX BSD-3-Clause-Clear header,
   a shebang, and `set -euo pipefail` (bash, `shellcheck`-clean) or
   [PEP 8](https://peps.python.org/pep-0008/) style (python).
 - Skills are non-destructive by default: they stop before push, ask before

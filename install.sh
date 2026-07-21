@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-License-Identifier: BSD-3-Clause-Clear
 #
 # Install the qcom-linux-skills catalog into the directories that common
 # agents (Claude Code, Codex, Cursor) read skills from.
