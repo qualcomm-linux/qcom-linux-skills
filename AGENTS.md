@@ -41,6 +41,9 @@ Other files an agent should know about:
   `--list` to enumerate); idempotent and self-verifying.
 - `.claude-plugin/marketplace.json` — Claude Code plugin marketplace
   manifest exposing each skill as an individually installable plugin.
+- `ci/check-catalog.py` — catalog consistency checker: skill frontmatter
+  and naming conventions, script headers, and the cross-references
+  between `skills/`, README.md, ROADMAP.md and marketplace.json.
 - `README.md` — the "Available skills" table and the authoritative
   [skill layout and conventions](README.md#skill-layout-and-conventions).
 - `ROADMAP.md` — planned skills with their intended names and scope.
@@ -80,6 +83,7 @@ There is no committed test harness; these checks are cheap enough to run
 over the whole catalog:
 
 ```sh
+python3 ci/check-catalog.py
 shellcheck install.sh skills/*/scripts/*.sh
 python3 -m py_compile skills/*/scripts/*.py
 ./install.sh --targets project --project "$(mktemp -d)"
