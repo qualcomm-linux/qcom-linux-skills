@@ -1,0 +1,83 @@
+{
+  "name": "qcom-linux-skills",
+  "owner": {
+    "name": "Qualcomm Linux",
+    "url": "https://github.com/qualcomm-linux"
+  },
+  "metadata": {
+    "description": "Agent skills for Qualcomm Linux workflows: building meta-qcom images, flashing and validating boards, and working on the qcom-next kernel",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "qcom-device-info",
+      "source": "./",
+      "strict": false,
+      "description": "Print SoC/board/OS info from a booted Qualcomm Linux target",
+      "skills": ["./skills/qcom-device-info"]
+    },
+    {
+      "name": "qcom-yocto-build-image",
+      "source": "./",
+      "strict": false,
+      "description": "Build Qualcomm Linux images from meta-qcom with kas-container",
+      "skills": ["./skills/qcom-yocto-build-image"]
+    },
+    {
+      "name": "qcom-yocto-download-prebuilt",
+      "source": "./",
+      "strict": false,
+      "description": "Download prebuilt Qualcomm Linux (QLI) flashable images from the public CodeLinaro archive",
+      "skills": ["./skills/qcom-yocto-download-prebuilt"]
+    },
+    {
+      "name": "qcom-flash-qdl",
+      "source": "./",
+      "strict": false,
+      "description": "Flash a board in EDL mode with the QDL tool",
+      "skills": ["./skills/qcom-flash-qdl"]
+    },
+    {
+      "name": "qcom-boot-validate",
+      "source": "./",
+      "strict": false,
+      "description": "Validate that a board boots to a working login shell over the serial console",
+      "skills": ["./skills/qcom-boot-validate"]
+    },
+    {
+      "name": "qcom-kernel-qcom-next-build",
+      "source": "./",
+      "strict": false,
+      "description": "Cross-build the qcom-next kernel standalone (defconfig + qcom.config fragments)",
+      "skills": ["./skills/qcom-kernel-qcom-next-build"]
+    },
+    {
+      "name": "qcom-yocto-pre-pr-checks",
+      "source": "./",
+      "strict": false,
+      "description": "Run meta-qcom's CI-parity checks (patchreview, check-layer, oe-selftest) before a PR",
+      "skills": ["./skills/qcom-yocto-pre-pr-checks"]
+    },
+    {
+      "name": "qcom-yocto-update-base-lock",
+      "source": "./",
+      "strict": false,
+      "description": "Refresh the layer commit pins in meta-qcom's ci/base.lock.yml with a changelog-style commit",
+      "skills": ["./skills/qcom-yocto-update-base-lock"]
+    },
+    {
+      "name": "qcom-lava-log",
+      "source": "./",
+      "strict": false,
+      "description": "Fetch and analyze LAVA test job logs, results, and definitions via the LAVA REST API",
+      "skills": ["./skills/qcom-lava-log"]
+    },
+    {
+      "name": "qcom-skills-contribute",
+      "source": "./",
+      "strict": false,
+      "description": "Turn local edits to an installed skill from this catalog into a DCO-signed topic-branch commit and, on request, the upstream pull request",
+      "skills": ["./skills/qcom-skills-contribute"]
+    }
+  ]
+}
