@@ -11,7 +11,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v10
+      - uses: actions/stale@1e223db275d687790206a7acac4d1a11bd6fe629 # v10.4.0
         with:
           stale-issue-message: 'Remove the stale label or add a comment to reset the inactivity timer.'
           stale-pr-message: 'This pull request has been marked as stale due to 30 days of inactivity and will automatically close after an additional 5 days. To prevent automatic closure in 5 days, remove the stale label or add a comment. You can reopen a closed pull request at any time.'
