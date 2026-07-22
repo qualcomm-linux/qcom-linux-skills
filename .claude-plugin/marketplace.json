@@ -17,6 +17,13 @@
       "skills": ["./skills/qcom-device-info"]
     },
     {
+      "name": "qcom-deb-build-image",
+      "source": "./",
+      "strict": false,
+      "description": "Build a Qualcomm Linux Debian (trixie) image from qcom-deb-images with debos",
+      "skills": ["./skills/qcom-deb-build-image"]
+    },
+    {
       "name": "qcom-yocto-build-image",
       "source": "./",
       "strict": false,
