@@ -8,6 +8,11 @@ The instructions below govern code review behavior only.
 
 ### Comment discipline
 
+- Review only the lines this pull request adds or modifies. Never comment
+  on pre-existing code the PR does not change — even when it looks wrong,
+  and even when it is visible as context around a changed line. If a
+  change merely touches a line (e.g. re-pins a version) inside code with
+  pre-existing issues, those issues are out of scope for this review.
 - Only comment when you are highly confident that a concrete defect exists;
   when in doubt, stay silent.
 - Every comment must name the defect and propose a specific fix, using a
