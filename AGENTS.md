@@ -44,6 +44,9 @@ Other files an agent should know about:
 - `ci/check-catalog.py` — catalog consistency checker: skill frontmatter
   and naming conventions, script headers, and the cross-references
   between `skills/`, README.md, ROADMAP.md and marketplace.json.
+- `.github/copilot-instructions.md` — Copilot code review behavior
+  (comment discipline, checks CI already covers, review focus areas);
+  keep its CI list in sync when checks change.
 - `README.md` — the "Available skills" table and the authoritative
   [skill layout and conventions](README.md#skill-layout-and-conventions).
 - `ROADMAP.md` — planned skills with their intended names and scope.

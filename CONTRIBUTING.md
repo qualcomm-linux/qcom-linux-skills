@@ -68,6 +68,16 @@ result feeds into the pull-request flow below.
 1. [Submit a pull request](https://github.com/qualcomm-linux/qcom-linux-skills/pulls) from your branch to `main`.
 1. Pat yourself on the back and wait for your pull request to be reviewed.
 
+## Copilot code review
+
+Maintainers may request a review from GitHub Copilot on your pull request.
+Its comments are advisory only — Copilot never approves, requests changes,
+or blocks a merge — and its review behavior is governed by
+[.github/copilot-instructions.md](.github/copilot-instructions.md), which
+keeps it focused on concrete defects the CI checks cannot catch. Address
+the comments that point at real problems and feel free to say so when one
+does not.
+
 ## Security Analysis of Pull Requests
 
 To maintain the security and integrity of this project, all pull requests from external contributors are automatically scanned using [Semgrep](https://github.com/semgrep/semgrep) to detect insecure coding patterns and potential security flaws.
