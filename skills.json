@@ -1,0 +1,229 @@
+{
+  "manifestVersion": 1,
+  "skills": [
+    {
+      "name": "qcom-device-info",
+      "displayName": "Device Info",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Print SoC/board/OS info from a booted Qualcomm Linux target",
+      "agents": ["claude", "codex"],
+      "category": "general",
+      "tags": ["device-info", "soc", "board", "os-release", "build-id", "kernel", "baseline"],
+      "useCases": [
+        "Print device info for the Qualcomm Linux board this runs on",
+        "Identify which board or SoC a booted target is",
+        "Check which image or build a board is running (BUILD_ID)",
+        "Capture a device baseline before running tests"
+      ],
+      "hostOs": ["linux"],
+      "targetOs": ["qualcomm-linux"],
+      "path": "skills/qcom-device-info",
+      "docPath": "skills/qcom-device-info/SKILL.md",
+      "files": ["skills/qcom-device-info/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-yocto-build-image",
+      "displayName": "Build a Yocto Image (meta-qcom)",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Build Qualcomm Linux images from meta-qcom with kas-container",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["yocto", "meta-qcom", "kas", "kas-container", "bitbake", "image", "qcomflash"],
+      "useCases": [
+        "Build an image for the RB3 Gen2, ride-sx, or IQ EVK",
+        "Build qcom-console-image from meta-qcom",
+        "Do a qcom-distro or SOTA build",
+        "Build a meta-qcom image with the qcom-next kernel"
+      ],
+      "hostOs": ["linux"],
+      "path": "skills/qcom-yocto-build-image",
+      "docPath": "skills/qcom-yocto-build-image/SKILL.md",
+      "files": ["skills/qcom-yocto-build-image/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-yocto-download-prebuilt",
+      "displayName": "Download Prebuilt Images (QLI)",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Download prebuilt Qualcomm Linux (QLI) flashable images from the public CodeLinaro archive",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["prebuilt", "qli", "codelinaro", "flashable", "download", "images", "yocto"],
+      "useCases": [
+        "Download a prebuilt Qualcomm Linux image",
+        "Get the QLI image for the IQ-9075 or RB3 Gen2",
+        "Fetch the multimedia image without building",
+        "Get flashable binaries from the CodeLinaro archive"
+      ],
+      "hostOs": ["linux"],
+      "targetOs": ["qualcomm-linux"],
+      "devkits": ["rb3gen2-core-kit", "iq-615-evk", "iq-8275-evk", "iq-9075-evk", "iq-x5121-evk", "iq-x7181-evk"],
+      "path": "skills/qcom-yocto-download-prebuilt",
+      "docPath": "skills/qcom-yocto-download-prebuilt/SKILL.md",
+      "files": ["skills/qcom-yocto-download-prebuilt/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-flash-qdl",
+      "displayName": "Flash a Board over EDL (QDL)",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Flash a board in EDL mode with the QDL tool",
+      "agents": ["claude", "codex"],
+      "category": "hardware",
+      "tags": ["flashing", "edl", "qdl", "qcomflash", "usb", "firehose", "ufs", "emmc"],
+      "useCases": [
+        "Flash the board in EDL mode",
+        "Flash the RB3 Gen2, rb1, or IQ EVK",
+        "Reflash the qcomflash image over EDL",
+        "Flash a board that enumerates as USB 05c6:9008"
+      ],
+      "hostOs": ["linux"],
+      "targetOs": ["qualcomm-linux"],
+      "devkits": ["rb3gen2-core-kit", "iq-615-evk", "iq-8275-evk", "iq-9075-evk", "iq-x5121-evk", "iq-x7181-evk"],
+      "path": "skills/qcom-flash-qdl",
+      "docPath": "skills/qcom-flash-qdl/SKILL.md",
+      "files": ["skills/qcom-flash-qdl/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-boot-validate",
+      "displayName": "Validate Board Boot (serial)",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Validate that a board boots to a working login shell over the serial console",
+      "agents": ["claude", "codex"],
+      "category": "hardware",
+      "tags": ["boot", "validation", "serial", "console", "uart", "login", "systemd"],
+      "useCases": [
+        "Validate the board boots to a login shell after flashing",
+        "Check the board over the serial console",
+        "Confirm the new image came up",
+        "Watch the boot console and report PASS or FAIL"
+      ],
+      "hostOs": ["linux"],
+      "targetOs": ["qualcomm-linux"],
+      "path": "skills/qcom-boot-validate",
+      "docPath": "skills/qcom-boot-validate/SKILL.md",
+      "files": ["skills/qcom-boot-validate/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-kernel-qcom-next-build",
+      "displayName": "Build the qcom-next Kernel",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Cross-build the qcom-next kernel standalone (defconfig + qcom.config fragments)",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["kernel", "qcom-next", "cross-compile", "arm64", "defconfig", "qcom.config", "dtbs"],
+      "useCases": [
+        "Build the qcom-next kernel standalone",
+        "Compile the Qualcomm kernel with my patch for a qcom board",
+        "Enable a kernel config for qcom",
+        "Build Image, DTBs and modules from the qcom-next branch"
+      ],
+      "hostOs": ["linux"],
+      "path": "skills/qcom-kernel-qcom-next-build",
+      "docPath": "skills/qcom-kernel-qcom-next-build/SKILL.md",
+      "files": ["skills/qcom-kernel-qcom-next-build/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-yocto-pre-pr-checks",
+      "displayName": "meta-qcom Pre-PR Checks",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Run meta-qcom's CI-parity checks (patchreview, check-layer, oe-selftest) before a PR",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["ci", "pre-pr", "patchreview", "check-layer", "oe-selftest", "yocto", "meta-qcom"],
+      "useCases": [
+        "Run the pre-PR checks on my meta-qcom branch",
+        "Check if my meta-qcom branch is ready for a PR",
+        "Run patchreview, check-layer, or oe-selftest locally",
+        "Validate my layer changes the way CI would"
+      ],
+      "hostOs": ["linux"],
+      "path": "skills/qcom-yocto-pre-pr-checks",
+      "docPath": "skills/qcom-yocto-pre-pr-checks/SKILL.md",
+      "files": ["skills/qcom-yocto-pre-pr-checks/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-yocto-update-base-lock",
+      "displayName": "Update meta-qcom base.lock Pins",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Refresh the layer commit pins in meta-qcom's ci/base.lock.yml with a changelog-style commit",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["meta-qcom", "base.lock", "layers", "pins", "srcrev", "maintenance", "yocto"],
+      "useCases": [
+        "Update base.lock to latest",
+        "Bump the layer hashes or revisions in meta-qcom",
+        "Refresh ci/base.lock.yml to the latest layer commits"
+      ],
+      "hostOs": ["linux"],
+      "path": "skills/qcom-yocto-update-base-lock",
+      "docPath": "skills/qcom-yocto-update-base-lock/SKILL.md",
+      "files": ["skills/qcom-yocto-update-base-lock/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-lava-log",
+      "displayName": "Fetch and Analyze LAVA Logs",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Fetch and analyze LAVA test job logs, results, and definitions via the LAVA REST API",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["lava", "logs", "test", "rest-api", "ci", "debugging", "foundries"],
+      "useCases": [
+        "Investigate a LAVA test job failure from its URL or ID",
+        "Root-cause a LAVA job",
+        "Read the serial console or kernel boot log from a LAVA job"
+      ],
+      "hostOs": ["linux"],
+      "path": "skills/qcom-lava-log",
+      "docPath": "skills/qcom-lava-log/SKILL.md",
+      "files": ["skills/qcom-lava-log/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    },
+    {
+      "name": "qcom-skills-contribute",
+      "displayName": "Contribute a Skill Upstream",
+      "version": "0.1",
+      "owner": "qualcomm-linux",
+      "description": "Turn local edits to an installed skill from this catalog into a DCO-signed topic-branch commit and, on request, the upstream pull request",
+      "agents": ["claude", "codex"],
+      "category": "devtools",
+      "tags": ["contribution", "git", "dco", "pull-request", "catalog", "upstream"],
+      "useCases": [
+        "Upstream my skill changes",
+        "Propose this skill change back to the catalog",
+        "Send my skill fix as a PR",
+        "Contribute this skill improvement to the catalog"
+      ],
+      "hostOs": ["linux"],
+      "path": "skills/qcom-skills-contribute",
+      "docPath": "skills/qcom-skills-contribute/SKILL.md",
+      "files": ["skills/qcom-skills-contribute/**"],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills"
+    }
+  ]
+}

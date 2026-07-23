@@ -34,8 +34,11 @@ CI already enforces the following; do not comment on anything they cover:
 - Catalog conventions via `ci/check-catalog.py`: frontmatter key set, skill
   name matching its directory and the `qcom-*` naming groups, description
   limits, SPDX headers, `set -euo pipefail`, executable bits, and the
-  cross-references between `skills/`, README.md, ROADMAP.md and
-  `.claude-plugin/marketplace.json`.
+  cross-references between `skills/`, README.md, ROADMAP.md,
+  `.claude-plugin/marketplace.json` and `skills.json` (including the manifest
+  schema — `manifestVersion`, required entry fields, kebab-case names, safe
+  `path`/`docPath`, `files` covering each `SKILL.md`, and the description
+  matching the marketplace entry).
 - Agent Skills spec conformance (`skills-ref validate`) and marketplace
   schema validation (`claude plugin validate`).
 - Semgrep, repolinter, dependency review, copyright/license and commit

@@ -5,9 +5,10 @@
 
 Enforces the repository-specific conventions documented in AGENTS.md and
 the README ("Skill layout and conventions") that generic tooling does not
-cover, and the cross-references between skills/, README.md, ROADMAP.md and
-.claude-plugin/marketplace.json. Every violation is reported as
-"[QLSnnn] path: message" and the exit code is non-zero if any is found.
+cover, and the cross-references between skills/, README.md, ROADMAP.md,
+.claude-plugin/marketplace.json and skills.json. Every violation is
+reported as "[QLSnnn] path: message" and the exit code is non-zero if any
+is found.
 
 Spec-level SKILL.md validation (kebab-case limits, allowed keys, NFKC
 rules) is delegated to the skills-ref reference validator in CI; this
@@ -24,6 +25,7 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS_DIR = os.path.join(REPO, "skills")
 NAME_RE = re.compile(r"^qcom-[a-z0-9]+(-[a-z0-9]+)*$")
+MANIFEST_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 KEY_RE = re.compile(r"^([A-Za-z][A-Za-z0-9_-]*):(.*)$")
 README_ROW_RE = re.compile(r"\[([a-z0-9-]+)\]\(skills/([a-z0-9-]+)/SKILL\.md\)")
 VERSION_RE = re.compile(r"""^(?:"[^"]+"|'[^']+')$""")
@@ -223,6 +225,114 @@ def check_marketplace(skills):
             "plugin '%s' has no matching skills/ directory" % pname)
 
 
+def glob_to_regex(pattern):
+    """Translate a restricted glob to a regex.
+
+    Supports '**' (matches across '/') and '*' (matches within one path
+    segment); every other character is matched literally.
+    """
+    out = ["^"]
+    i, n = 0, len(pattern)
+    while i < n:
+        if pattern[i] == "*":
+            if i + 1 < n and pattern[i + 1] == "*":
+                out.append(".*")
+                i += 2
+            else:
+                out.append("[^/]*")
+                i += 1
+        else:
+            out.append(re.escape(pattern[i]))
+            i += 1
+    out.append("$")
+    return re.compile("".join(out))
+
+
+def check_skills_json(skills):
+    manifest = os.path.join(REPO, "skills.json")
+    if not os.path.isfile(manifest):
+        err(50, manifest, "skills.json manifest is missing")
+        return
+    try:
+        data = json.loads(read_text(manifest))
+    except ValueError as exc:
+        err(50, manifest, "invalid JSON: %s" % exc)
+        return
+    if data.get("manifestVersion") != 1:
+        err(51, manifest,
+            "manifestVersion must be 1 (found: %r)"
+            % data.get("manifestVersion"))
+    # Each entry's one-line description must match the marketplace listing so
+    # the two manifests never drift apart.
+    mkt_desc = {}
+    mkt_path = os.path.join(REPO, ".claude-plugin", "marketplace.json")
+    try:
+        mkt = json.loads(read_text(mkt_path))
+        for plugin in mkt.get("plugins", []):
+            mkt_desc[plugin.get("name", "")] = plugin.get("description", "")
+    except (OSError, ValueError):
+        mkt_desc = {}
+    entries = {}
+    for entry in data.get("skills", []):
+        name = entry.get("name", "")
+        for field in ("name", "version", "owner", "description"):
+            if not entry.get(field):
+                err(52, manifest,
+                    "entry '%s' is missing required field '%s'"
+                    % (name or "?", field))
+        if name:
+            if not MANIFEST_NAME_RE.match(name):
+                err(53, manifest,
+                    "name '%s' is not lowercase kebab-case" % name)
+            if name in entries:
+                err(53, manifest, "duplicate entry '%s'" % name)
+            entries[name] = entry
+        for agent in entry.get("agents", []):
+            if agent not in ("claude", "codex"):
+                err(57, manifest,
+                    "entry '%s' lists unsupported agent '%s'"
+                    % (name or "?", agent))
+    for name in skills:
+        entry = entries.get(name)
+        if entry is None:
+            err(54, manifest, "skills/%s has no manifest entry" % name)
+            continue
+        path = entry.get("path", "")
+        doc = entry.get("docPath", "")
+        for field, value in (("path", path), ("docPath", doc)):
+            if value.startswith("/") or ".." in value.split("/"):
+                err(55, manifest,
+                    "entry '%s' has unsafe %s '%s'" % (name, field, value))
+        if path and path.rstrip("/") != "skills/%s" % name:
+            err(55, manifest,
+                "entry '%s' path must be skills/%s (found '%s')"
+                % (name, name, path))
+        if doc and not os.path.isfile(os.path.join(REPO, doc)):
+            err(55, manifest,
+                "entry '%s' docPath '%s' does not exist" % (name, doc))
+        target = doc or "skills/%s/SKILL.md" % name
+        files = entry.get("files", [])
+        if not files or not any(glob_to_regex(p).match(target) for p in files):
+            err(56, manifest,
+                "entry '%s' files must cover its SKILL.md (%s)"
+                % (name, target))
+        desc = entry.get("description", "")
+        if name in mkt_desc and desc != mkt_desc[name]:
+            err(58, manifest,
+                "entry '%s' description does not match marketplace.json"
+                % name)
+        parsed = parse_frontmatter(read_text(os.path.join(SKILLS_DIR, name,
+                                                          "SKILL.md")))
+        fm_version = skill_version(parsed[1]) if parsed else ""
+        if fm_version and entry.get("version") != fm_version:
+            err(59, manifest,
+                "entry '%s' version '%s' does not match SKILL.md metadata "
+                "version '%s'" % (name, entry.get("version"), fm_version))
+    for name in sorted(set(entries) - set(skills)):
+        err(54, manifest,
+            "entry '%s' has no matching skills/ directory" % name)
+
+
 def check_roadmap(skills):
     roadmap = os.path.join(REPO, "ROADMAP.md")
     lines = read_text(roadmap).splitlines()
@@ -247,6 +357,7 @@ def main():
         check_scripts(name)
     check_readme(skills)
     check_marketplace(skills)
+    check_skills_json(skills)
     check_roadmap(skills)
     if errors:
         for line in errors:

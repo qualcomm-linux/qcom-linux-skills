@@ -84,6 +84,27 @@ agents, including Claude Code, Codex and Cursor. Installs are detached
 copies tracked by its own lockfile; as with the marketplace route,
 propose changes via the clone route above.
 
+## Skills manifest (`skills.json`) — proposal
+
+> **Status: proposal, not a finalized interface.** This repository ships a
+> repo-root [`skills.json`](skills.json) as a proposal for a possible
+> Qualcomm MCP server that would discover and install these skills from
+> GitHub. That server is not yet public and its final design and manifest
+> spec are not finalized, so the manifest here is expected to evolve and
+> nothing consumes it today.
+
+The intent is a manifest a server could fetch to build a searchable catalog
+(indexed by tags, use-cases, hardware and OS) and install a skill on
+request, with no client-side deployment beyond publishing to GitHub. Each
+entry in `skills.json` carries display metadata for one skill; the one-line
+`description` mirrors the plugin entry in `.claude-plugin/marketplace.json`
+and the `version` mirrors the skill's `metadata.version` front matter, and
+`ci/check-catalog.py` keeps both in sync.
+
+Fields that would depend on the eventual server are deliberately left out
+until its spec is finalized: context-aware `triggers`, a minimum server
+version, and the git ref (branch or tag) a server would track.
+
 ## Usage
 
 Use your favorite agent to call one of the named skills from this project, or

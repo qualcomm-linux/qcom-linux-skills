@@ -41,9 +41,15 @@ Other files an agent should know about:
   `--list` to enumerate); idempotent and self-verifying.
 - `.claude-plugin/marketplace.json` — Claude Code plugin marketplace
   manifest exposing each skill as an individually installable plugin.
+- `skills.json` — repo-root skills manifest (`manifestVersion: 1`): one
+  entry per skill with its display metadata, tags, use-cases and file globs.
+  A proposal for a possible Qualcomm MCP server that would fetch it to
+  publish this catalog; that server is not yet public and its spec is not
+  finalized, so the manifest is expected to evolve. See
+  [README.md](README.md#skills-manifest-skillsjson--proposal).
 - `ci/check-catalog.py` — catalog consistency checker: skill frontmatter
   and naming conventions, script headers, and the cross-references
-  between `skills/`, README.md, ROADMAP.md and marketplace.json.
+  between `skills/`, README.md, ROADMAP.md, marketplace.json and skills.json.
 - `.github/copilot-instructions.md` — Copilot code review behavior
   (comment discipline, checks CI already covers, review focus areas);
   keep its CI list in sync when checks change.
@@ -62,7 +68,8 @@ README conventions. In summary:
   folded `description` that states what the skill does, quotes the trigger
   phrases users would say, and names what the skill must NOT be used for
   (cross-referencing the sibling skill that covers that case). An optional
-  `metadata` mapping may follow, carrying a `version` string (e.g. `"0.1"`).
+  `metadata` mapping may follow, carrying a `version` string (e.g. `"0.1"`)
+  that `skills.json` mirrors.
 - Skill names state the project/distro they drive: `qcom-yocto-*` for
   meta-qcom (Yocto) workflows, `qcom-deb-*` (planned) for qcom-deb-images,
   kernel skills name the tree/branch they build
@@ -78,8 +85,11 @@ README conventions. In summary:
 
 When adding a skill, also add it to the "Available skills" table in
 [README.md](README.md), add its plugin entry to
-`.claude-plugin/marketplace.json`, and reconcile [ROADMAP.md](ROADMAP.md):
-mark the matching entry available, or add it under the fitting group.
+`.claude-plugin/marketplace.json`, add its manifest entry to `skills.json`
+(keeping the one-line `description` identical to the marketplace entry and
+the `version` identical to the skill's `metadata.version`), and reconcile
+[ROADMAP.md](ROADMAP.md): mark the matching entry available, or add it under
+the fitting group.
 
 ## 3) Validate before opening/updating a PR
 
@@ -87,6 +97,7 @@ There is no committed test harness; these checks are cheap enough to run
 over the whole catalog:
 
 ```sh
+python3 -m json.tool skills.json >/dev/null
 python3 ci/check-catalog.py
 shellcheck install.sh skills/*/scripts/*.sh
 python3 -m py_compile skills/*/scripts/*.py
