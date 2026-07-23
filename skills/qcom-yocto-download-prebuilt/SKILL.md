@@ -10,6 +10,8 @@ description: >-
   multimedia image", or "get flashable binaries without building". Do NOT
   use for building images yourself (see qcom-yocto-build-image), for
   flashing (see qcom-flash-qdl), or for Ubuntu/Debian images.
+metadata:
+  version: "0.1"
 ---
 
 # Download prebuilt Qualcomm Linux images

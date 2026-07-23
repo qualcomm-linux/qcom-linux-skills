@@ -58,10 +58,11 @@ Model new skills on the minimal example
 [skills/qcom-device-info/SKILL.md](skills/qcom-device-info/SKILL.md) and the
 README conventions. In summary:
 
-- Frontmatter has exactly two keys: `name` (matches the directory) and a
+- Frontmatter has two required keys: `name` (matches the directory) and a
   folded `description` that states what the skill does, quotes the trigger
   phrases users would say, and names what the skill must NOT be used for
-  (cross-referencing the sibling skill that covers that case).
+  (cross-referencing the sibling skill that covers that case). An optional
+  `metadata` mapping may follow, carrying a `version` string (e.g. `"0.1"`).
 - Skill names state the project/distro they drive: `qcom-yocto-*` for
   meta-qcom (Yocto) workflows, `qcom-deb-*` (planned) for qcom-deb-images,
   kernel skills name the tree/branch they build

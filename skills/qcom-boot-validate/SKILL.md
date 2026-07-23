@@ -10,6 +10,8 @@ description: >-
   console". Needs the serial console attached to this host (or reachable
   over ssh). Do NOT use for flashing (see qcom-flash-qdl) or for
   diagnosing a healthy-but-degraded system.
+metadata:
+  version: "0.1"
 ---
 
 # Validate a board boots over the serial console

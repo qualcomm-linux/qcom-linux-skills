@@ -8,6 +8,8 @@ description: >-
   device shows up as USB 05c6:9008. Do NOT use for building images (see
   qcom-yocto-build-image), for boot validation after flashing (see
   qcom-boot-validate), or for fastboot/U-Boot based flows.
+metadata:
+  version: "0.1"
 ---
 
 # Flash a board over EDL with QDL

@@ -9,6 +9,8 @@ description: >-
   "enable a kernel config for qcom". Do NOT use for building complete
   images (see qcom-yocto-build-image) or for bumping the kernel SRCREV in
   meta-qcom recipes.
+metadata:
+  version: "0.1"
 ---
 
 # Build the qcom-next kernel standalone

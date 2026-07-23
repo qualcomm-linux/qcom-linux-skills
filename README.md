@@ -114,9 +114,11 @@ for a minimal example):
   (`qcom-flash-qdl`, `qcom-boot-validate`, `qcom-device-info`), and
   `qcom-skills-*` for skills that manage this catalog itself
   (`qcom-skills-contribute`).
-- Frontmatter has two keys: `name` (matches the directory) and a folded
-  `description` that states what the skill does, quotes the trigger phrases
-  users would say, and names what the skill must NOT be used for.
+- Frontmatter has two required keys: `name` (matches the directory) and a
+  folded `description` that states what the skill does, quotes the trigger
+  phrases users would say, and names what the skill must NOT be used for. An
+  optional `metadata` mapping may follow, carrying a `version` string
+  (e.g. `"0.1"`).
 - Script paths inside a SKILL.md are relative to the skill's directory.
 - Helper scripts carry an SPDX BSD-3-Clause-Clear header, a shebang, and
   `set -euo pipefail` (bash) or equivalent strictness (python).

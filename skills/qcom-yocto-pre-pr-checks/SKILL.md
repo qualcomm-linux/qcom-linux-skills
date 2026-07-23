@@ -9,6 +9,8 @@ description: >-
   check-layer / oe-selftest", or "validate my layer changes like CI
   would". Do NOT use for building images (see qcom-yocto-build-image) or for
   hardware validation (see qcom-boot-validate).
+metadata:
+  version: "0.1"
 ---
 
 # Run meta-qcom's CI checks before a PR

@@ -9,6 +9,8 @@ description: >-
   booted target (not the build host). Do NOT use for health diagnostics or
   for host-side build questions. This is an example skill and the authoring
   template for this catalog.
+metadata:
+  version: "0.1"
 ---
 
 # qcom-device-info
