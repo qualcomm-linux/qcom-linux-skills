@@ -17,6 +17,7 @@ for the product documentation these workflows are based on.
 | Skill | Audience | What it does |
 |---|---|---|
 | [qcom-device-info](skills/qcom-device-info/SKILL.md) | users | Print SoC/board/OS info from a booted Qualcomm Linux target (example skill / authoring template) |
+| [qcom-device-diagnostic](skills/qcom-device-diagnostic/SKILL.md) | users, developers | Read-only health snapshot of a booted target: remoteproc, thermal, failed units, dmesg, storage/memory |
 | [qcom-yocto-build-image](skills/qcom-yocto-build-image/SKILL.md) | users, developers | Build Qualcomm Linux images from meta-qcom with kas-container |
 | [qcom-yocto-download-prebuilt](skills/qcom-yocto-download-prebuilt/SKILL.md) | users | Download prebuilt Qualcomm Linux (QLI) flashable images from the public CodeLinaro archive |
 | [qcom-flash-qdl](skills/qcom-flash-qdl/SKILL.md) | users | Flash a board in EDL mode with the QDL tool |
