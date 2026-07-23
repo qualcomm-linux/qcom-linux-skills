@@ -9,6 +9,8 @@ description: >-
   latest", or "refresh ci/base.lock.yml" in the meta-qcom repo. git-only (no
   kas); touches only repos already pinned in the lock; commits on a branch and
   stops before push.
+metadata:
+  version: "0.1"
 ---
 
 # Update ci/base.lock.yml layer pins to latest

@@ -10,6 +10,8 @@ description: >-
   skill improvement to the catalog". Only for changes to skills from
   this catalog; do NOT use for pull requests to meta-qcom or other
   target repositories (prepare those with qcom-yocto-pre-pr-checks).
+metadata:
+  version: "0.1"
 ---
 
 # qcom-skills-contribute

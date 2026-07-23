@@ -26,6 +26,7 @@ SKILLS_DIR = os.path.join(REPO, "skills")
 NAME_RE = re.compile(r"^qcom-[a-z0-9]+(-[a-z0-9]+)*$")
 KEY_RE = re.compile(r"^([A-Za-z][A-Za-z0-9_-]*):(.*)$")
 README_ROW_RE = re.compile(r"\[([a-z0-9-]+)\]\(skills/([a-z0-9-]+)/SKILL\.md\)")
+VERSION_RE = re.compile(r"""^(?:"[^"]+"|'[^']+')$""")
 MAX_DESCRIPTION = 1024
 
 errors = []
@@ -43,8 +44,10 @@ def read_text(path):
 def parse_frontmatter(text):
     """Return (keys, values) of the top-level frontmatter entries.
 
-    Folded/multi-line values are joined with spaces. Returns None when the
-    frontmatter fences are missing or unterminated.
+    Folded/multi-line scalars are joined with spaces. The ``metadata`` key
+    is read as a nested mapping: its indented ``sub: value`` lines are
+    returned as a dict under it. Returns None when the frontmatter fences
+    are missing or unterminated.
     """
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
@@ -55,13 +58,30 @@ def parse_frontmatter(text):
     for line in lines[1:]:
         if line.strip() == "---":
             return keys, values
+        indented = line[:1] in (" ", "\t")
+        submatch = KEY_RE.match(line.strip())
+        if indented and isinstance(values.get(current), dict) and submatch:
+            values[current][submatch.group(1)] = submatch.group(2).strip()
+            continue
         match = KEY_RE.match(line)
         if match:
             current = match.group(1)
             keys.append(current)
             value = match.group(2).strip()
-            values[current] = "" if value in (">", ">-", "|", "|-") else value
+            if value in (">", ">-", "|", "|-"):
+                values[current] = ""
+            elif value == "" and current == "metadata":
+                # `metadata` is the only mapping-valued key; its indented
+                # ``sub: value`` lines populate the dict below.
+                values[current] = {}
+            else:
+                values[current] = value
         elif current is not None and line.strip():
+            if isinstance(values[current], dict):
+                # A key established as a mapping stays a mapping; stray text
+                # that is not an indented ``sub: value`` is malformed YAML,
+                # left for skills-ref and the metadata check to reject.
+                continue
             values[current] = (values[current] + " " + line.strip()).strip()
     return None
 
@@ -77,10 +97,13 @@ def check_skill(name):
         err(2, skill_md, "frontmatter is missing or not delimited by ---")
         return
     keys, values = parsed
-    if keys != ["name", "description"]:
+    if keys[:2] != ["name", "description"] or set(keys) - {"name", "description", "metadata"}:
         err(3, skill_md,
-            "frontmatter must have exactly the keys 'name' and "
-            "'description' (found: %s)" % ", ".join(keys or ["none"]))
+            "frontmatter must start with 'name' and 'description' and may "
+            "only add 'metadata' (found: %s)" % ", ".join(keys or ["none"]))
+    elif len(keys) != len(set(keys)):
+        err(3, skill_md,
+            "frontmatter has a duplicate key (found: %s)" % ", ".join(keys))
     fm_name = values.get("name", "")
     if fm_name and fm_name != name:
         err(4, skill_md,
@@ -91,12 +114,34 @@ def check_skill(name):
             "name '%s' does not match the documented naming groups "
             "(qcom-[a-z0-9-]*)" % fm_name)
     description = values.get("description", "")
-    if not description:
+    if not isinstance(description, str) or not description:
         err(6, skill_md, "description is empty or missing")
     elif len(description) > MAX_DESCRIPTION:
         err(6, skill_md,
             "description is %d characters (max %d)"
             % (len(description), MAX_DESCRIPTION))
+    metadata = values.get("metadata")
+    if metadata is not None:
+        if not isinstance(metadata, dict) or not skill_version(values):
+            err(7, skill_md,
+                "metadata is present but has no quoted 'version' string "
+                "(e.g. version: \"0.1\")")
+
+
+def skill_version(values):
+    """Return the SKILL.md metadata version, or '' when absent/invalid.
+
+    The raw-text frontmatter parser cannot tell YAML scalar types apart, so
+    a version must be written as a quoted string (``version: "0.1"``); bare
+    scalars such as ``0.1``, ``[]`` or ``null`` are rejected as invalid.
+    """
+    metadata = values.get("metadata")
+    if not isinstance(metadata, dict):
+        return ""
+    raw = metadata.get("version", "").strip()
+    if not VERSION_RE.match(raw):
+        return ""
+    return raw[1:-1]
 
 
 def check_scripts(name):

@@ -9,6 +9,8 @@ description: >-
   or "build with the qcom-next kernel". Do NOT use for Debian images
   (qcom-deb-images), for flashing (see qcom-flash-qdl), or for running
   pre-PR checks (see qcom-yocto-pre-pr-checks).
+metadata:
+  version: "0.1"
 ---
 
 # Build a Qualcomm Linux image with kas-container
