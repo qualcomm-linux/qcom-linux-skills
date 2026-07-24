@@ -20,7 +20,7 @@ Contributions for any entry are welcome — see
 |---|---|---|---|
 | `qcom-yocto-build-image` | P1 | available | Build any supported image with `kas-container build ci/<machine>.yml[:ci/<distro>.yml][:ci/<kernel>.yml]`: machine list, distro overlays, kernel overlays, image targets, cache hygiene, `qcomflash` artifacts |
 | `qcom-yocto-image-customize` | P2 | planned | Add packages/features to an image the right way: local.conf fragment vs bbappend vs custom image recipe; layer placement policy (meta-qcom vs -distro vs -3rdparty) |
-| `qcom-yocto-new-machine` | P2 | planned | Bring up a new board in meta-qcom-3rdparty: machine .conf + SoC include, firmware-boot/CDT recipe, packagegroup, kas yml, CI workflow (modeled on the Arduino / Radxa board additions) |
+| `qcom-yocto-new-machine` | P2 | available | Bring up a new board in meta-qcom or meta-qcom-3rdparty: machine .conf + SoC include, firmware-boot/CDT recipe, packagegroup, kas yml (modeled on the Arduino / Radxa board additions) |
 | `qcom-yocto-build-troubleshoot` | P3 | planned | Triage common bitbake/kas failures: fetch/mirror errors, sstate issues, disk space, license/QA errors |
 
 ## B. Flash & deploy
