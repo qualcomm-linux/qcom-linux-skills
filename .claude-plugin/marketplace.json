@@ -17,6 +17,13 @@
       "skills": ["./skills/qcom-device-info"]
     },
     {
+      "name": "qcom-device-diagnostic",
+      "source": "./",
+      "strict": false,
+      "description": "Read-only health snapshot of a booted Qualcomm Linux target: remoteproc, thermal, failed units, dmesg, storage/memory",
+      "skills": ["./skills/qcom-device-diagnostic"]
+    },
+    {
       "name": "qcom-yocto-build-image",
       "source": "./",
       "strict": false,
