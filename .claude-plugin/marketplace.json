@@ -17,6 +17,20 @@
       "skills": ["./skills/qcom-device-info"]
     },
     {
+      "name": "qcom-deb-build-image",
+      "source": "./",
+      "strict": false,
+      "description": "Build a Qualcomm Linux Debian (trixie) image from qcom-deb-images with debos",
+      "skills": ["./skills/qcom-deb-build-image"]
+    },
+    {
+      "name": "qcom-deb-flash-boot",
+      "source": "./",
+      "strict": false,
+      "description": "Flash a Qualcomm Linux Debian image over EDL/QDL, write an SD card, or boot it under QEMU",
+      "skills": ["./skills/qcom-deb-flash-boot"]
+    },
+    {
       "name": "qcom-yocto-build-image",
       "source": "./",
       "strict": false,
