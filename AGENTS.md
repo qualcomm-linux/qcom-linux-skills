@@ -54,9 +54,10 @@ Other files an agent should know about:
 
 ## 2) Skill authoring conventions
 
-Model new skills on the minimal example
-[skills/qcom-device-info/SKILL.md](skills/qcom-device-info/SKILL.md) and the
-README conventions. In summary:
+Model new skills on the reference example
+[skills/qcom-device-info/SKILL.md](skills/qcom-device-info/SKILL.md) — which
+uses all three parts of the layout (`SKILL.md`, `scripts/`, `references/`) —
+and the README conventions. In summary:
 
 - Frontmatter has two required keys: `name` (matches the directory) and a
   folded `description` that states what the skill does, quotes the trigger

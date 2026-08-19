@@ -13,7 +13,7 @@
       "name": "qcom-device-info",
       "source": "./",
       "strict": false,
-      "description": "Print SoC/board/OS info from a booted Qualcomm Linux target",
+      "description": "Identify a booted Qualcomm Linux target: SoC/board/OS, firmware versions and build provenance",
       "skills": ["./skills/qcom-device-info"]
     },
     {
