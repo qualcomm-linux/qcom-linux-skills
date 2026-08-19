@@ -7,6 +7,10 @@ whenever the LUN layout changes. Safe to re-run on an already-provisioned device
 
 ## Download provision file
 
+Use the command appropriate for your OS:
+
+**Linux / WSL / macOS:**
+
 ```bash  QCS6490
 wget https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/QCS6490/provision.zip
 ```
@@ -23,10 +27,37 @@ wget https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/Q
 wget https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/X1E80100/provision_default.zip
 ```
 
+**Windows (PowerShell):**
+
+```powershell  QCS6490
+Invoke-WebRequest -Uri https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/QCS6490/provision.zip -OutFile provision.zip
+```
+
+```powershell  IQ-9075-EVK
+Invoke-WebRequest -Uri https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/QCS9100/provision.zip -OutFile provision.zip
+```
+
+```powershell  IQ-8275-EVK
+Invoke-WebRequest -Uri https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/QCS8300/provision.zip -OutFile provision.zip
+```
+
+```powershell  IQ-X7181-EVK / IQ-X5121-EVK
+Invoke-WebRequest -Uri https://artifacts.codelinaro.org/artifactory/codelinaro-le/Qualcomm_Linux/X1E80100/provision_default.zip -OutFile provision.zip
+```
+
 ## Extract and enter directory
+
+**Linux / WSL / macOS:**
 
 ```bash
 unzip provision.zip -d provision
+cd provision
+```
+
+**Windows (PowerShell):**
+
+```powershell
+Expand-Archive provision.zip -DestinationPath provision
 cd provision
 ```
 
@@ -49,4 +80,8 @@ qdl --storage ufs xbl_s_devprg_ns.melf provision.xml
 ```
 
 The device reboots after provisioning. Return to the image directory and confirm
-the board is back in EDL (`lsusb -d 05c6:9008`) before proceeding.
+the board is back in EDL before proceeding — use the OS-appropriate command
+from step 3 of the main skill (e.g. `lsusb -d 05c6:9008` on Linux/WSL,
+`system_profiler SPUSBDataType | grep -A5 "9008"` on macOS, or
+`pnputil /enum-devices /connected | Select-String "VID_05C6&PID_9008"` on
+Windows).
