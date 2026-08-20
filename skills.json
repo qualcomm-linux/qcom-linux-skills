@@ -5,7 +5,7 @@
       "name": "qcom-device-info",
       "displayName": "Device Info",
       "owner": "qualcomm-linux",
-      "description": "Print SoC/board/OS info from a booted Qualcomm Linux target",
+      "description": "Identify a booted Qualcomm Linux target: SoC/board/OS, firmware versions and build provenance",
       "agents": ["claude", "codex", "cursor"],
       "category": "general",
       "tags": [
@@ -15,19 +15,29 @@
         "os-release",
         "build-id",
         "kernel",
-        "baseline"
+        "baseline",
+        "buildinfo",
+        "socinfo",
+        "firmware",
+        "provenance",
+        "release-identification",
+        "support-report"
       ],
       "useCases": [
         "Print device info for the Qualcomm Linux board this runs on",
         "Identify which board or SoC a booted target is",
         "Check which image or build a board is running (BUILD_ID)",
-        "Capture a device baseline before running tests"
+        "Capture a device baseline before running tests",
+        "Report the firmware versions (BOOT, TZ, DSP, UEFI) on a board",
+        "Find which meta-qcom and layer revisions an image was built from",
+        "Produce a support report replacing the retired Ver_Info.txt",
+        "Analyze release information pasted from a board you cannot reach"
       ],
       "license": "BSD-3-Clause-Clear",
       "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-device-info",
           "docPath": "skills/qcom-device-info/SKILL.md",
           "files": ["skills/qcom-device-info/**"],

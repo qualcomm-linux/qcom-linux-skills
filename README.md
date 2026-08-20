@@ -16,7 +16,7 @@ for the product documentation these workflows are based on.
 
 | Skill | Audience | What it does |
 |---|---|---|
-| [qcom-device-info](skills/qcom-device-info/SKILL.md) | users | Print SoC/board/OS info from a booted Qualcomm Linux target (example skill / authoring template) |
+| [qcom-device-info](skills/qcom-device-info/SKILL.md) | users | Identify a booted Qualcomm Linux target: SoC/board/OS, firmware versions and build provenance (example skill / authoring template) |
 | [qcom-yocto-build-image](skills/qcom-yocto-build-image/SKILL.md) | users, developers | Build Qualcomm Linux images from meta-qcom with kas-container |
 | [qcom-yocto-download-prebuilt](skills/qcom-yocto-download-prebuilt/SKILL.md) | users | Download prebuilt Qualcomm Linux (QLI) flashable images from the public CodeLinaro archive |
 | [qcom-flash-qdl](skills/qcom-flash-qdl/SKILL.md) | users | Flash a board in EDL mode with the QDL tool |
@@ -104,7 +104,7 @@ skills/<skill-name>/
 ```
 
 Conventions (see [skills/qcom-device-info](skills/qcom-device-info/SKILL.md)
-for a minimal example):
+for a worked example of all three parts):
 
 - Skill names state the project/distro they drive so workflows are not
   confused across distros: `qcom-yocto-*` for meta-qcom (Yocto) workflows,

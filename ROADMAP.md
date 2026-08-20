@@ -51,7 +51,7 @@ Contributions for any entry are welcome — see
 
 | Skill | Priority | Status | Scope |
 |---|---|---|---|
-| `qcom-device-info` | P1 | available | Print SoC/board/OS info from a booted target; doubles as the authoring template |
+| `qcom-device-info` | P1 | available | Identify a booted target: SoC/board/OS, firmware inventory and build provenance (Ver_Info.txt replacement); doubles as the authoring template |
 | `qcom-device-diagnostic` | P2 | planned | Read-only health snapshot: remoteproc/firmware state, thermal zones, failed systemd units, dmesg errors, storage/memory |
 | `qcom-boot-debug` | P2 | planned | Triage a failed boot from a serial log: firmware stage vs kernel panic vs rootfs mount vs systemd failure |
 
