@@ -65,6 +65,7 @@ Contributions for any entry are welcome — see
 | `qcom-backport` | P3 | planned | Backport a commit from the development branch to an LTS branch with the `[Backport <branch>]` subject convention |
 | `qcom-ci-triage` | P3 | planned | Investigate a failing GitHub Actions run in a qualcomm-linux repo and summarize the root cause |
 | `qcom-lava-log` | P2 | available | Fetch and analyze LAVA test job logs, results, and definitions via the LAVA REST API |
+| `qcom-yocto-lava-ci-report` | P2 | available | Sweep a window of LAVA jobs and GitHub Actions runs for a meta-qcom family layer into an HTML CI/CD reliability report: failure taxonomy, harness artefacts, coverage lost to skips, follow-ups by owner |
 
 ## G. Skill catalog management
 

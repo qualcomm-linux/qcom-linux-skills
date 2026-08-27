@@ -27,6 +27,7 @@ for the product documentation these workflows are based on.
 | [qcom-kernel-platform-backport](skills/qcom-kernel-platform-backport/SKILL.md) | developers, maintainers | Backport upstream board/platform enablement into the qualcomm-linux LTS kernel branch, with local and hardware validation |
 | [qcom-yocto-pre-pr-checks](skills/qcom-yocto-pre-pr-checks/SKILL.md) | developers | Run meta-qcom's CI-parity checks (patchreview, check-layer, oe-selftest) before a PR |
 | [qcom-lava-log](skills/qcom-lava-log/SKILL.md) | developers | Fetch and analyze LAVA test job logs, results, and definitions via the LAVA REST API |
+| [qcom-yocto-lava-ci-report](skills/qcom-yocto-lava-ci-report/SKILL.md) | developers, maintainers | Report on CI/CD health for a meta-qcom family layer: sweep a window of LAVA jobs and GitHub Actions runs into an HTML failure report with follow-up suggestions by owner |
 | [qcom-yocto-update-base-lock](skills/qcom-yocto-update-base-lock/SKILL.md) | maintainers | Refresh the layer commit pins in meta-qcom's ci/base.lock.yml with a changelog-style commit |
 | [qcom-skills-contribute](skills/qcom-skills-contribute/SKILL.md) | users, developers | Turn local edits to an installed skill from this catalog into a DCO-signed topic-branch commit and, on request, the upstream pull request |
 

@@ -94,6 +94,13 @@
       "skills": ["./skills/qcom-lava-log"]
     },
     {
+      "name": "qcom-yocto-lava-ci-report",
+      "source": "./",
+      "strict": false,
+      "description": "Report on CI/CD health for a meta-qcom family layer: sweep a window of LAVA jobs and GitHub Actions runs into an HTML failure report with follow-up suggestions by owner",
+      "skills": ["./skills/qcom-yocto-lava-ci-report"]
+    },
+    {
       "name": "qcom-skills-contribute",
       "source": "./",
       "strict": false,

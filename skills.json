@@ -510,6 +510,46 @@
       ]
     },
     {
+      "name": "qcom-yocto-lava-ci-report",
+      "displayName": "LAVA and CI Health Report",
+      "owner": "qualcomm-linux",
+      "description": "Report on CI/CD health for a meta-qcom family layer: sweep a window of LAVA jobs and GitHub Actions runs into an HTML failure report with follow-up suggestions by owner",
+      "agents": ["claude", "codex", "cursor"],
+      "category": "devtools",
+      "tags": [
+        "lava",
+        "ci",
+        "github-actions",
+        "meta-qcom",
+        "yocto",
+        "test-results",
+        "flaky-tests",
+        "report",
+        "html",
+        "lab"
+      ],
+      "useCases": [
+        "Report on CI health for meta-qcom over the last two weeks",
+        "Explain why CI is red when most jobs pass",
+        "Find which boards in the LAVA lab are unreliable",
+        "Find test coverage that is silently skipped",
+        "Produce a CI failure report to send to the lab administrators"
+      ],
+      "license": "BSD-3-Clause-Clear",
+      "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
+      "versions": [
+        {
+          "version": "0.1",
+          "path": "skills/qcom-yocto-lava-ci-report",
+          "docPath": "skills/qcom-yocto-lava-ci-report/SKILL.md",
+          "files": ["skills/qcom-yocto-lava-ci-report/**"],
+          "compatibility": {
+            "hostOs": ["linux"]
+          }
+        }
+      ]
+    },
+    {
       "name": "qcom-skills-contribute",
       "displayName": "Contribute a Skill Upstream",
       "owner": "qualcomm-linux",
