@@ -10,7 +10,7 @@ description: >-
   (qcom-deb-images), for flashing (see qcom-flash-qdl), or for running
   pre-PR checks (see qcom-yocto-pre-pr-checks).
 metadata:
-  version: "0.1"
+  version: "0.2"
 ---
 
 # Build a Qualcomm Linux image with kas-container
@@ -21,7 +21,9 @@ outside the repo, and a build defined purely by composing `ci/*.yml` files.
 
 ## Prerequisites
 
-- A meta-qcom checkout (`git clone https://github.com/qualcomm-linux/meta-qcom`).
+- A meta-qcom checkout (`git clone https://github.com/qualcomm-linux/meta-qcom`)
+  — needed only for `meta-qcom`'s own boards; sibling-layer boards (see below)
+  are built from the sibling layer's checkout instead.
 - `kas-container` on PATH (from [kas](https://github.com/siemens/kas)), with a
   working Docker or Podman runtime (verify with `docker run --rm hello-world`).
 - Tens of GB free disk space; a first build downloads sources and builds the
@@ -54,6 +56,40 @@ set; the common ones are:
 `kaanapali-mtp`, `glymur-crd`, `shikra-evk`, `iq-615-evk`, `iq-8275-evk`,
 `iq-9075-evk` (and `-open-fw`), `iq-x5121-evk`, `iq-x7181-evk`, plus the
 generic `qcom-armv8a` / `qcom-armv7a`.
+
+**Board not in `meta-qcom`?** Reference boards maintained by Qualcomm live in
+`meta-qcom`; Arduino and other third-party boards live in sibling BSP layers.
+If `ci/<machine>.yml` isn't in your checkout, look for the board here:
+
+| Layer | Boards (`<machine>`) |
+|---|---|
+| [`meta-qcom-arduino`](https://github.com/qualcomm-linux/meta-qcom-arduino) | `uno-q` (Arduino UNO Q), `ventuno-q` (Arduino VENTUNO Q) |
+| [`meta-qcom-3rdparty`](https://github.com/qualcomm-linux/meta-qcom-3rdparty) | `rubikpi3`, `radxa-dragon-q6a`, ... |
+
+Arduino boards are maintained in `meta-qcom-arduino`; use that layer for
+`uno-q` / `ventuno-q` rather than `meta-qcom-3rdparty`.
+
+These layers ship their **own** `ci/<machine>.yml`, and their `ci/base.yml`
+pulls `meta-qcom` in as a dependency — so a bare `meta-qcom` checkout is *not*
+needed (the "Prerequisites" clone above is only for building `meta-qcom`'s own
+boards). Instead, clone the sibling layer, `cd` into it, and build its yml. The
+environment setup from step 1 still applies verbatim — export the same
+`KAS_WORK_DIR` / `DL_DIR` / `SSTATE_DIR` before building so caches stay shared
+and outside the checkout:
+
+```bash
+git clone https://github.com/qualcomm-linux/meta-qcom-arduino.git -b main
+cd meta-qcom-arduino
+# export KAS_WORK_DIR / DL_DIR / SSTATE_DIR as in step 1, then:
+kas-container build ci/ventuno-q.yml
+```
+
+Artifacts land in the same place as any other build —
+`$KAS_WORK_DIR/build/tmp/deploy/images/<machine>/` (see "Locate the
+artifacts"). Check each layer's `conf/machine/` for the authoritative board
+list. Note these layers currently track a rolling `main` (no release tags
+yet), so pin the resolved revisions with a kas lock file if you need a
+reproducible build.
 
 **Distro overlays** (optional; without one the build is `nodistro`):
 
