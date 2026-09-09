@@ -69,6 +69,17 @@ From the IQ-X7181/IQ-X5121 Quick Start Guide:
 2. Connect the USB-C cable to the host and check `lsusb -d 05c6:9008`.
 3. Turn off dip switch **S2-4** after flashing is complete.
 
+## Arduino / third-party boards (sibling BSP layers)
+
+Boards supported outside `meta-qcom` — Arduino boards from
+[`meta-qcom-arduino`](https://github.com/qualcomm-linux/meta-qcom-arduino)
+(`ventuno-q`, `uno-q`) and boards from
+[`meta-qcom-3rdparty`](https://github.com/qualcomm-linux/meta-qcom-3rdparty)
+(`rubikpi3`, `radxa-dragon-q6a`, …) — each have their own EDL procedure. Do
+**not** reuse an EVK's DIP-switch label for them. Follow the board vendor's own
+documentation (Arduino / Radxa / etc.) or its Quick Start Guide for the
+force-download button/switch, then verify with `lsusb -d 05c6:9008` as above.
+
 ## Common patterns on other boards
 
 - **Force-DL button/switch**: most development boards (RB1, IDP, EVK

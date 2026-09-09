@@ -9,7 +9,7 @@ description: >-
   qcom-yocto-build-image), for boot validation after flashing (see
   qcom-boot-validate), or for fastboot/U-Boot based flows.
 metadata:
-  version: "0.1"
+  version: "0.2"
 ---
 
 # Flash a board over EDL with QDL
@@ -192,9 +192,14 @@ then use a serial-capable client such as PuTTY or TeraTerm at 115200 baud.
 
 ### 3. Put the board in EDL mode
 
+How a board enters EDL is **board-specific — do not guess a switch or button**.
 See [references/entering-edl.md](references/entering-edl.md) for per-board
-instructions (e.g. RB3 Gen 2: hold `F_DL` while applying power). Then
-confirm the host sees the EDL device:
+instructions (e.g. RB3 Gen 2: hold `F_DL` while applying power). If your board
+is not listed there — including Arduino and other third-party boards
+(`ventuno-q`, `uno-q`, `rubikpi3`, …) — follow the "flash images" section of
+its Quick Start Guide (<https://docs.qualcomm.com>; Dragonwing boards:
+<https://dragonwingdocs.qualcomm.com>) rather than assuming another board's
+sequence. Then confirm the host sees the EDL device:
 
 **Linux/WSL:**
 
