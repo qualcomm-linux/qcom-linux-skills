@@ -15,7 +15,7 @@ description: >-
   from its URL or ID (see qcom-lava-log), or to run meta-qcom's CI-parity
   checks before opening a pull request (see qcom-yocto-pre-pr-checks).
 metadata:
-  version: "0.1"
+  version: "0.2"
 ---
 
 # qcom-yocto-lava-ci-report
@@ -76,7 +76,8 @@ Two ways to hold the token:
   device inventory, and can read the same token for raw REST calls:
 
   ```sh
-  TOKEN=$(jq -r '[.projects[].mcpServers.lava.headers["X-Lava-Token"] | select(.)][0]' ~/.claude.json)
+  # user-scoped servers sit at the top level, local-scoped ones under .projects
+  TOKEN=$(jq -r '[(.mcpServers, .projects[]?.mcpServers) | .lava?.headers?["X-Lava-Token"]? | select(.)][0] // empty' ~/.claude.json)
   ```
 
 - Directly, for any agent or host without the MCP server: create a token in
