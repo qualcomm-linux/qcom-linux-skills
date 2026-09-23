@@ -131,9 +131,9 @@ actually uses â€” the bridge driver, the PHY, the clock controllers, the codec â
 and by reading the board DTS itself for every `&label` it enables. Anything the
 DTS references must exist in the SoC dtsi on the branch.
 
-For a large area, delegate a subsystem sweep (display, audio, WiFi/BT, USB) to
-a subagent and have it report *required vs optional vs excluded* with the
-release tag and the in-branch status for each commit.
+Classify every commit a subsystem sweep (display, audio, WiFi/BT, USB) turns
+up as *required*, *optional* or *excluded*, with its release tag and in-branch
+status; the excluded list is what the final report cites.
 
 ### Triage rules
 
@@ -508,9 +508,6 @@ Interpret results carefully before filing a bug against your own series:
   note the target is usually busybox: `head -40` is rejected, `head -n 40` is
   not. A malformed check silently yields no output, which reads exactly like
   "nothing wrong".
-- Keep the greps narrow. `dmesg | grep -iE "emc2305|cci|i2c|..." | head -n 60`
-  drowns in unrelated `i2c` matches and truncates before reaching the line you
-  need; grep for the one driver name.
 
 Validate **both** `core-image-base` (nodistro) and a qcom-distro image. They
 install kernel modules by different rules, so a device that works in one and
