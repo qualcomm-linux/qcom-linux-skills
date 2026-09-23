@@ -71,8 +71,8 @@ whole device types with no real coverage.
 
 Two ways to hold the token:
 
-- Through the **`lava` MCP server**, which is how this skill was developed.
-  Agents that have it can call the MCP tools directly for lab health and
+- Through the **`lava` MCP server**. Agents that have it can call the MCP
+  tools directly for lab health and
   device inventory, and can read the same token for raw REST calls:
 
   ```sh
