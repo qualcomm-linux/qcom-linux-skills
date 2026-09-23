@@ -1,6 +1,14 @@
 ---
 name: qcom-lava-log
-description: Fetch and analyze LAVA test job logs, metadata, results, and definitions from a Foundries/Linaro LAVA instance (default lava.infra.foundries.io). Use when given a LAVA job URL or job ID (e.g. .../scheduler/job/256592) and asked to investigate a test failure, root-cause a job, or read the serial console / kernel boot log. The LAVA web UI is behind Anubis anti-bot protection so WebFetch returns 403 — use the REST API endpoints below instead.
+description: >-
+  Fetch and analyze LAVA test job logs, metadata, results, and definitions
+  from a Foundries/Linaro LAVA instance (default lava.infra.foundries.io).
+  Use when given a LAVA job URL or job ID (e.g. .../scheduler/job/256592)
+  and asked to investigate a test failure, root-cause a job, or read the
+  serial console / kernel boot log. The LAVA web UI is behind Anubis
+  anti-bot protection, so WebFetch returns 403; this skill reads the REST
+  API instead. Do NOT use for a CI health or reliability report over a
+  window of jobs (see qcom-yocto-lava-ci-report).
 metadata:
   version: "0.1"
 ---
