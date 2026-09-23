@@ -127,7 +127,7 @@
       "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-deb-flash-boot",
           "docPath": "skills/qcom-deb-flash-boot/SKILL.md",
           "files": ["skills/qcom-deb-flash-boot/**"],
