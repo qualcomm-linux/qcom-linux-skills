@@ -13,8 +13,7 @@ description: >-
   "reconstruct Ver_Info", or to capture a baseline before tests. Read-only;
   runs on the booted target, or offline on a capture someone pasted. Do NOT
   use for health diagnostics or host-side build questions (see
-  qcom-yocto-build-image). This is an example skill and the authoring
-  template for this catalog.
+  qcom-yocto-build-image).
 metadata:
   version: "0.2"
 ---
