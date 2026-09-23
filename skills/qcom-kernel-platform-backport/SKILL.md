@@ -49,6 +49,11 @@ the platform identifiers with your own.
   access (see `qcom-lava-log`) or a board (`qcom-flash-qdl`,
   `qcom-boot-validate`).
 - `gh` authenticated, for reading CI results on the pull request.
+- The helper scripts named below (`find-candidates.sh`, `backport-commit.sh`,
+  `dtbs-compare.sh`, `check-series.sh`) live in this skill's `scripts/`
+  directory and run from the kernel checkout. Invoke them by full path
+  (`<skill-dir>/scripts/...`): a bare `scripts/...` there resolves into the
+  kernel's own `scripts/` tree.
 
 ## 1. Pin down the platform and the target branch
 
