@@ -31,7 +31,7 @@ https://artifacts.codelinaro.org/artifactory/qli-ci/flashable-binaries/meta-qcom
 |---|---|
 | `<distro>` | omit the path segment for `qcom-distro` (default); `qcom-distro-sota/` for the OTA-enabled variant |
 | `<machine>` | `rb3gen2-core-kit`, `iq-615-evk`, `iq-8275-evk`, `iq-9075-evk`, `iq-x5121`, `iq-x7181` |
-| `<release>` | `qli-2.0` (current at time of writing) |
+| `<release>` | release tag, e.g. `qli-2.0`; list the browsable index below for the releases actually published |
 | `<image>` | `qcom-multimedia-image` or `qcom-multimedia-proprietary-image` |
 
 Examples:
