@@ -1,6 +1,14 @@
 ---
 name: qcom-lava-log
-description: Fetch and analyze LAVA test job logs, metadata, results, and definitions from a Foundries/Linaro LAVA instance (default lava.infra.foundries.io). Use when given a LAVA job URL or job ID (e.g. .../scheduler/job/256592) and asked to investigate a test failure, root-cause a job, or read the serial console / kernel boot log. The LAVA web UI is behind Anubis anti-bot protection so WebFetch returns 403 — use the REST API endpoints below instead.
+description: >-
+  Fetch and analyze LAVA test job logs, metadata, results, and definitions
+  from a Foundries/Linaro LAVA instance (default lava.infra.foundries.io).
+  Use when given a LAVA job URL or job ID (e.g. .../scheduler/job/256592)
+  and asked to investigate a test failure, root-cause a job, or read the
+  serial console / kernel boot log. The LAVA web UI is behind Anubis
+  anti-bot protection, so WebFetch returns 403; this skill reads the REST
+  API instead. Do NOT use for a CI health or reliability report over a
+  window of jobs (see qcom-yocto-lava-ci-report).
 metadata:
   version: "0.1"
 ---
@@ -105,17 +113,18 @@ grep '"lvl": "target"' "$LOGS" | grep -iE "never came up|failed|error|cut here|W
 python3 -c "import json,sys; d=json.load(open('/tmp/lava_$JOB.json')); print(d['state'],d['health'],d['requested_device_type'],d['actual_device'])"
 ```
 
-## Investigation workflow
+## Investigating a failure
 
-1. Resolve the **job ID** from the URL (digits after `/job/`).
-2. Fetch metadata → note `device_type`, `actual_device`, `state`, `health`, and read the
-   job `definition` (lists deploy image URL and the test definitions/expected cases).
-3. Fetch logs → list all test-case results to see which case failed.
-4. Jump to the failing case's `target` lines for the `[FAIL]` reason and surrounding
-   script output.
-5. Correlate with the **kernel boot log** (`lvl: target`) for the underlying hardware/
-   driver cause (e.g. `Phy link never came up`, probe `-EPROBE_DEFER`, firmware load
-   errors, missing DT node). A driver that prints *zero* kernel messages usually means it
-   never bound to any device.
-6. Check whether the triggering change (e.g. the GitHub Actions build/commit) could
-   plausibly cause the failure, or whether it's a pre-existing board/lab/DT issue.
+The goal is the failing case, its underlying cause, and whether the change that
+triggered the job (e.g. the GitHub Actions build/commit) could plausibly have
+caused it or it is a pre-existing board/lab/DT issue. Where the evidence lives:
+
+- The **job ID** is the digits after `/job/` in the URL.
+- The metadata places the job (`device_type`, `actual_device`, `state`, `health`);
+  its `definition` lists the deploy image URL and the test definitions/expected cases.
+- The test-case results name the failing case; its `target` lines carry the `[FAIL]`
+  reason and the surrounding script output.
+- The **kernel boot log** (`lvl: target`) holds the underlying hardware/driver cause
+  (e.g. `Phy link never came up`, probe `-EPROBE_DEFER`, firmware load errors, missing
+  DT node). A driver that prints *zero* kernel messages usually never bound to any
+  device.

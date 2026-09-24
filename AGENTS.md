@@ -41,6 +41,9 @@ Other files an agent should know about:
   `--list` to enumerate); idempotent and self-verifying.
 - `.claude-plugin/marketplace.json` — Claude Code plugin marketplace
   manifest exposing each skill as an individually installable plugin.
+- `skills.json` — skill manifest for the Qualcomm Developer MCP: display
+  name, summary, tags, use cases, supported agents, and each skill's
+  version and paths.
 - `ci/check-catalog.py` — catalog consistency checker: skill frontmatter
   and naming conventions, script headers, and the cross-references
   between `skills/`, README.md, ROADMAP.md and marketplace.json.
@@ -79,8 +82,14 @@ and the README conventions. In summary:
 
 When adding a skill, also add it to the "Available skills" table in
 [README.md](README.md), add its plugin entry to
-`.claude-plugin/marketplace.json`, and reconcile [ROADMAP.md](ROADMAP.md):
-mark the matching entry available, or add it under the fitting group.
+`.claude-plugin/marketplace.json` and its entry to `skills.json`, and
+reconcile [ROADMAP.md](ROADMAP.md): mark the matching entry available, or
+add it under the fitting group.
+
+Keep `skills.json` in sync in the same commit that changes a skill: each
+entry's `versions[].version` matches the skill's `metadata.version`, and
+its `description` matches the skill's marketplace entry.
+`ci/check-catalog.py` does not check `skills.json`, so review it by hand.
 
 ## 3) Validate before opening/updating a PR
 

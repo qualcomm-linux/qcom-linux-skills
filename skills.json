@@ -127,7 +127,7 @@
       "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-deb-flash-boot",
           "docPath": "skills/qcom-deb-flash-boot/SKILL.md",
           "files": ["skills/qcom-deb-flash-boot/**"],
@@ -163,7 +163,7 @@
       "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-yocto-build-image",
           "docPath": "skills/qcom-yocto-build-image/SKILL.md",
           "files": ["skills/qcom-yocto-build-image/**"],
@@ -257,7 +257,7 @@
       ],
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-flash-qdl",
           "docPath": "skills/qcom-flash-qdl/SKILL.md",
           "files": ["skills/qcom-flash-qdl/**"],
@@ -539,7 +539,7 @@
       "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-yocto-lava-ci-report",
           "docPath": "skills/qcom-yocto-lava-ci-report/SKILL.md",
           "files": ["skills/qcom-yocto-lava-ci-report/**"],

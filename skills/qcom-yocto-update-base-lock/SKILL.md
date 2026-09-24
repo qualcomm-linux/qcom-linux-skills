@@ -3,12 +3,11 @@ name: qcom-yocto-update-base-lock
 description: >-
   Refresh the upstream layer commit pins in meta-qcom's ci/base.lock.yml to the
   latest commit on each layer's branch and produce a changelog-style commit (one
-  "Relevant changes for <layer>:" section per bumped layer), like commit
-  ddbe6a6a "ci: base.lock: update layers to latest". Use when asked to "update
-  base.lock to latest", "bump the layer hashes/revisions", "update the layers to
-  latest", or "refresh ci/base.lock.yml" in the meta-qcom repo. git-only (no
-  kas); touches only repos already pinned in the lock; commits on a branch and
-  stops before push.
+  "Relevant changes for <layer>:" section per bumped layer). Use when asked to
+  "update base.lock to latest", "bump the layer hashes/revisions", "update the
+  layers to latest", or "refresh ci/base.lock.yml" in the meta-qcom repo.
+  git-only (no kas); touches only repos already pinned in the lock; commits on
+  a branch and stops before push.
 metadata:
   version: "0.1"
 ---
@@ -26,7 +25,7 @@ The helper script lives in this skill's directory; the commands below write
 `<skill-dir>` for it (e.g. `~/.claude/skills/qcom-yocto-update-base-lock` when installed
 via `install.sh`).
 
-## Ground rules (do not violate)
+## Ground rules
 
 - **git-only.** Do not use `kas`. Every repo is known from the lock; resolving
   with `git` is faster and avoids `kas dump --lock` re-deriving the repo set.

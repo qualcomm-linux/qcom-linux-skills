@@ -11,7 +11,7 @@ description: >-
   building the Debian image (see qcom-deb-build-image), or for serial boot
   validation of a physical board (see qcom-boot-validate).
 metadata:
-  version: "0.1"
+  version: "0.2"
 ---
 
 # Flash & boot a Qualcomm Linux Debian image
@@ -44,13 +44,20 @@ board over EDL with QDL, writing `disk-sdcard.img` to an SD card, or booting a
 ## Enter EDL mode
 
 EDL (Emergency Download) is a lower-level mode than fastboot; the host pushes
-a firehose programmer over USB-C. To enter it:
+a firehose programmer over USB-C. How a board enters it is board-specific, so
+do not guess a switch or button. On the RB3 Gen 2:
 
 1. Remove power from the board.
 2. Remove any cable from the USB-C port.
-3. On some boards, set the DIP switches for EDL.
-4. Hold the `F_DL` button while applying power.
-5. Connect the USB-C cable from host to board.
+3. Hold the `F_DL` button while applying power.
+4. Connect the USB-C cable from host to board.
+
+For any other board (the EVKs use DIP switches, and the Arduino UNO Q /
+VENTUNO Q have their own procedure), follow the per-board steps in the
+`qcom-flash-qdl` skill's `references/entering-edl.md`, or the "flash images"
+section of the board's Quick Start Guide (<https://docs.qualcomm.com>;
+Dragonwing boards: <https://dragonwingdocs.qualcomm.com>), rather than this
+sequence.
 
 Confirm the host enumerates the device before flashing:
 
