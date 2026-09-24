@@ -163,7 +163,7 @@
       "homepage": "https://github.com/qualcomm-linux/qcom-linux-skills",
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-yocto-build-image",
           "docPath": "skills/qcom-yocto-build-image/SKILL.md",
           "files": ["skills/qcom-yocto-build-image/**"],
@@ -257,7 +257,7 @@
       ],
       "versions": [
         {
-          "version": "0.1",
+          "version": "0.2",
           "path": "skills/qcom-flash-qdl",
           "docPath": "skills/qcom-flash-qdl/SKILL.md",
           "files": ["skills/qcom-flash-qdl/**"],
