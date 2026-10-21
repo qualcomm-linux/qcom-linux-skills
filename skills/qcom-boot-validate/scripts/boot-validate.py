@@ -16,7 +16,8 @@ over ssh so nothing is left on the remote host):
 By default the script only watches the console: start it, then power-cycle
 or reset the board (or start it right after flashing). Alternatively pass
 --power-cycle-cmd with a host command that power-cycles the board (e.g. a
-lab automation wrapper); it is run once at startup.
+lab automation wrapper); it is run once at startup, without a shell (wrap it
+in sh -c '...' for shell syntax).
 
 Prints "BOOT-VALIDATION: PASS ..." and exits 0 on success; prints
 "BOOT-VALIDATION: FAIL ..." and exits non-zero otherwise. The full console
@@ -26,6 +27,7 @@ capture is mirrored to a log file for evidence.
 import argparse
 import os
 import re
+import shlex
 import subprocess
 import sys
 import time
@@ -77,7 +79,8 @@ def main():
     ap.add_argument("--timeout", type=float, default=300.0,
                     help="seconds to wait for the login prompt")
     ap.add_argument("--power-cycle-cmd", default=None,
-                    help="optional host command that power-cycles the board; run once at startup")
+                    help="optional host command that power-cycles the board; run once at "
+                         "startup, without a shell (use sh -c '...' for shell syntax)")
     ap.add_argument("--logfile", default=None,
                     help="console capture path (default: /tmp/qcom-boot-validate-<ts>.log)")
     args = ap.parse_args()
@@ -183,12 +186,22 @@ def main():
     # 1) trigger a clean boot -------------------------------------------------
     if args.power_cycle_cmd:
         log("power-cycling board via: %s" % args.power_cycle_cmd)
-        r = subprocess.run(args.power_cycle_cmd, shell=True,
-                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        log("power-cycle rc=%d: %s" % (r.returncode,
-                                       r.stdout.decode(errors="replace").strip()))
-        if r.returncode != 0:
-            log("WARNING: power-cycle command returned non-zero; continuing to watch console")
+        # No shell: the command is split into argv; wrap it in sh -c '...'
+        # explicitly if it needs shell syntax (pipes, redirection, $VAR, ~)
+        # or is a script without a #! line.
+        try:
+            argv = shlex.split(args.power_cycle_cmd)
+            if not argv:
+                raise ValueError("empty command")
+            r = subprocess.run(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        except (OSError, ValueError) as e:
+            log("WARNING: could not run power-cycle command (%s); "
+                "continuing to watch console" % e)
+        else:
+            log("power-cycle rc=%d: %s" % (r.returncode,
+                                           r.stdout.decode(errors="replace").strip()))
+            if r.returncode != 0:
+                log("WARNING: power-cycle command returned non-zero; continuing to watch console")
     else:
         log("no --power-cycle-cmd given: power-cycle or reset the board now "
             "if it is not already booting")

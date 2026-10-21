@@ -11,7 +11,7 @@ description: >-
   over ssh). Do NOT use for flashing (see qcom-flash-qdl) or for
   diagnosing a healthy-but-degraded system.
 metadata:
-  version: "0.1"
+  version: "0.2"
 ---
 
 # Validate a board boots over the serial console
@@ -59,7 +59,11 @@ ssh <host> "python3 - --port /dev/ttyUSB0 --password oelinux123" \
   after) resetting, e.g. right after a flash completes.
 - `--power-cycle-cmd` runs a host command once at startup for setups that
   can drive board power programmatically (lab automation, smart PDU). Keep
-  site-specific automation in that command, not in this skill.
+  site-specific automation in that command, not in this skill. The command
+  is split shell-style and run without a shell; wrap it in `sh -c '...'`
+  if it needs pipes, redirection, variable or `~` expansion, or is a script
+  without a `#!` line. If it cannot be started, the script warns and keeps
+  watching the console, so the board must then be reset by hand.
 - Exit code `0` on `BOOT-VALIDATION: PASS`, non-zero on failure. The full
   console capture is mirrored to the log file (default
   `/tmp/qcom-boot-validate-<timestamp>.log`) for evidence.
